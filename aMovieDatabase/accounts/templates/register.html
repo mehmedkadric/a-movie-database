@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+  <div class="d-flex align-items-center h-100">
+    <div class="mx-auto w-50">
+      <form method="post" action="{% url 'register' %}" class="form-signin">
+        {% csrf_token %}
+        <h1 class="h3 mb-3 font-weight-normal text-center">Please register</h1>
+        <div class="form-group">
+          <label for="username">Username:</label>
+          <input type="text" name="username" class="form-control" id="username">
+        </div>
+        <div class="form-group">
+          <label for="first_name">First Name:</label>
+          <input type="text" name="first_name" class="form-control" id="first_name">
+        </div>
+        <div class="form-group">
+          <label for="last_name">Last Name:</label>
+          <input type="text" name="last_name" class="form-control" id="last_name">
+        </div>
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input type="email" name="email" class="form-control" id="email">
+        </div>
+        <div class="form-group">
+          <label for="password1">Password:</label>
+          <input type="password" name="password1" class="form-control" id="password1">
+        </div>
+        <div class="form-group">
+          <label for="password2">Confirm Password:</label>
+          <input type="password" name="password2" class="form-control" id="password2">
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Register</button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

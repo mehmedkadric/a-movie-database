@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+  <form method="POST" class="mx-auto w-25 mt-4">
+    {% csrf_token %}
+    <div class="form-group padding">
+      <label for="username" class="mr-4">Username:</label>
+      <input type="text" name="username" class="form-control form-control-lg" id="username">
+    </div>
+    <div class="form-group padding">
+      <label for="password" class="mr-4">Password:</label>
+      <input type="password" name="password" class="form-control form-control-lg" id="password">
+    </div>
+    <div class="form-group justify-content-between mb-4">
+      <button type="submit" class="btn btn-primary">Login</button>
+    </div>
+  </form>
+{% endblock %}
