@@ -1,36 +1,43 @@
 {% extends "base.html" %}
-{% load static %}
-
+ {% load static %}
 {% block content %}
-<div class="container mt-5">
- <div class="d-flex align-items-center h-100">
-  <div class="mx-auto w-50">
-    <form method="post" action="{% url 'register' %}" class="form-signin">
-      {% csrf_token %}
-      <h1 class="h3 mb-3 font-weight-normal text-center">Please register</h1>
-      <div class="form-group">
-        {{ form.first_name.label_tag }}
-        {{ form.first_name }}
-      </div>
-      <div class="form-group">
-        {{ form.last_name.label_tag }}
-        {{ form.last_name }}
-      </div>
-      <div class="form-group">
-        {{ form.email.label_tag }}
-        {{ form.email }}
-      </div>
-      <div class="form-group clearfix">
-        {{ form.password1.label_tag }}
-        {{ form.password1 }}
-      </div>
-      <div class="form-group clearfix">
-        {{ form.password2.label_tag }}
-        {{ form.password2 }}
-      </div>
-      <input type="submit" value="Register" class="btn btn-primary btn-block text-center">
+<head>
+      <link rel="stylesheet" type="text/css" href="{%static 'style.css' %}">
+</head>
+<body>
+<div class="signup-form">
+    <form method="post" action="{% url 'register' %}" >
+          {% csrf_token %}
+		<h2>Register</h2>
+		<p class="hint-text">Create your account. It's free and only takes a minute.</p>
+            <div class="form-group">
+            <input type="text" class="form-control" name="username" placeholder="Username" required="required">
+        </div>
+        <div class="form-group">
+			<div class="row">
+				<div class="col"><input type="text" class="form-control" name="first_name" placeholder="First Name" required="required"></div>
+				<div class="col"><input type="text" class="form-control" name="last_name" placeholder="Last Name" required="required"></div>
+			</div>
+        </div>
+        <div class="form-group">
+        	<input type="email" class="form-control" name="email" placeholder="Email" required="required">
+        </div>
+		<div class="form-group">
+            <input type="password" class="form-control" name="password" placeholder="Password" required="required">
+        </div>
+		<div class="form-group">
+            <input type="password" class="form-control" name="confirm_password" placeholder="Confirm Password" required="required">
+        </div>
+        <div class="form-group">
+			<label class="form-check-label"><input type="checkbox" required="required"> I accept the <a href="#">Terms of Use</a> &amp; <a href="#">Privacy Policy</a></label>
+		</div>
+		<div class="form-group">
+            <button type="submit" class="btn btn-success btn-lg btn-block">Register Now</button>
+        </div>
     </form>
-  </div>
+	<div class="text-center">Already have an account? <a href="/login">Sign in</a></div>
 </div>
- </div>
+</body>
+</html>
+
   {% endblock %}

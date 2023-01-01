@@ -4,7 +4,7 @@ from django.shortcuts import render
 # Create your views here.
 from django.shortcuts import render
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, get_user_model
 from django.contrib.auth.forms import UserCreationForm
 from .forms import NewUserForm
 
@@ -15,23 +15,47 @@ def home(request):
     }
     return render(request, 'home.html', context)
 
-
 def registration(request):
     if request.method == 'POST':
-        messages.info(request, "Please login or register.")
-        form = NewUserForm(request.POST)
-        if form.is_valid():
-            form.save()
-            username = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password1')
-            user = authenticate(username=username, password=password)
-            messages.success(request, f"Authentication successful")
-            login(request, user)
-            messages.info(request, f"You are now logged in as {username}")
-            return redirect('home.html')
-        else:
-            for msg in form.error_messages:
-                messages.error(request, f"{msg}: {form.error_messages[msg]}")
+        username = request.POST['username']
+        first_name = request.POST['first_name']
+        last_name = request.POST['last_name']
+        email = request.POST['email']
+        password = request.POST['password']
+        confirm_password = request.POST['confirm_password']
+
+        # Validate the form data (omitted for simplicity)
+
+        # Create a new user instance
+        User = get_user_model()
+        new_user = User.objects.create_user(
+            username=username,
+            first_name=first_name,
+            last_name=last_name,
+            email=email,
+            password=password
+        )
+
+        # Save the new user to the database
+        new_user.save()
+
+        # Redirect to a success page
+        return redirect('home')
     else:
-        form = NewUserForm()
-    return render(request, 'register.html', {'form': form})
+        # Render the form template
+        return render(request, 'register.html')
+
+
+def login_view(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('home')
+        else:
+            messages.error(request, 'Invalid username or password')  # Store the error message in a cookie
+            return render(request, 'login.html')
+    else:
+        return render(request, 'login.html')
