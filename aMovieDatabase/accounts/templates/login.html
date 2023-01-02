@@ -2,6 +2,20 @@
 {% load static %}
 
 {% block content %}
+
+<head>
+  <link rel="stylesheet" type="text/css" href="{%static 'style.css' %}">
+</head>
+
+<body style="background-color: rgb(74, 97, 116); color: aliceblue;"> 
+  {% if messages %}
+    <ul class="messages">
+      {% for message in messages %}
+      <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+  <div class="login-form">
   <form method="POST" class="mx-auto w-25 mt-4">
     {% csrf_token %}
     <div class="form-group padding">
@@ -15,5 +29,8 @@
     <div class="form-group justify-content-between mb-4">
       <button type="submit" class="btn btn-primary">Login</button>
     </div>
+    <p class="text-center" style="background-color: aliceblue; width: 20%;"><a href="/register">Sign Up</a></p>
   </form>
+</div>
+</body>
 {% endblock %}
