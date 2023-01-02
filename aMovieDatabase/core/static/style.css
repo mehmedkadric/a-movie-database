@@ -22,6 +22,7 @@
     font-weight: bold;
 }
 
+
 /* REGISTER */
 
 
@@ -95,7 +96,7 @@
 	padding-left: 10px;
 }
 .signup-form a {
-	color: #fff;
+	color: #5cb85c;
 	text-decoration: underline;
 }
 .signup-form a:hover {
