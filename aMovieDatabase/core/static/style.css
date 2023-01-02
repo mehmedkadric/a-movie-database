@@ -43,13 +43,13 @@
 	padding: 30px 0;
   	font-size: 15px;
 }
-.signup-form h2 {
+.login-form h2, .signup-form h2 {
 	color: #636363;
 	margin: 0 0 15px;
 	position: relative;
 	text-align: center;
 }
-.signup-form h2:before, .signup-form h2:after {
+.login-form h2:before, .signup-form h2:before, .login-form h2:after, .signup-form h2:after {
 	content: "";
 	height: 2px;
 	width: 30%;
@@ -58,13 +58,13 @@
 	top: 50%;
 	z-index: 2;
 }
-.signup-form h2:before {
+.login-form h2:before, .signup-form h2:before {
 	left: 0;
 }
-.signup-form h2:after {
+.login-form h2:after, .signup-form h2:after {
 	right: 0;
 }
-.signup-form .hint-text {
+.login-form .hint-text, .signup-form .hint-text {
 	color: #999;
 	margin-bottom: 30px;
 	text-align: center;
