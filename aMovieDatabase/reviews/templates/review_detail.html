@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<head>
+      <link rel="stylesheet" type="text/css" href="{%static 'style.css' %}">
+</head>
+
+<body>
+
+<section class="review-detail">
+  <div class="container">
+    <h2>{{ review.title }}</h2>
+    <h3>Author: {{ review.author }}</h3>
+    <p>{{ review.content }}</p>
+  </div>
+</section>
+
+</body>
+</html>
+{% endblock %}
