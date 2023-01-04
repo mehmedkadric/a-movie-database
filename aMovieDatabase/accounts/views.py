@@ -23,9 +23,10 @@ def registration(request):
                 first_name=form.cleaned_data['first_name'],
                 last_name=form.cleaned_data['last_name'],
                 email=form.cleaned_data['email'],
-                password=form.cleaned_data['password']
+                password=form.cleaned_data['password'],
             )
             # Save the new user to the database
+            new_user.dateBirth = form.cleaned_data['dateBirth']
             new_user.save()
             # Add a success message
             messages.success(request, 'Successfully registered!')

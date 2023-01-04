@@ -5,10 +5,11 @@ from django.contrib.auth.models import User
 
 class NewUserForm(UserCreationForm):
     email = forms.EmailField(required=True)
+    dateBirth = forms.DateField()
 
     class Meta:
         model = User
-        fields = ("first_name", "last_name", "email", "password1", "password2")
+        fields = ("first_name", "last_name", "email", "password1", "password2", "dateBirth")
 
     def save(self, commit=True):
         user = super(NewUserForm, self).save(commit=False)
@@ -24,6 +25,7 @@ class RegistrationForm(forms.Form):
     email = forms.EmailField()
     password = forms.CharField(widget=forms.PasswordInput)
     confirm_password = forms.CharField(widget=forms.PasswordInput)
+    dateBirth = forms.DateField()
 
     def clean(self):
         cleaned_data = super().clean()

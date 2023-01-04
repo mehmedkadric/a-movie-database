@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+ {% load static %}
+
+
+
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    {% for review in reviews %}
+      <div class="col-md-4">
+        <div class="card-content">
+          <div class="card-img">
+            <img src="img.png" alt="">
+            <span><h4>{{ review.title }}</h4></span>
+          </div>
+          <div class="card-desc">
+              <div class="author-card">
+                <h3>{{ review.author  }}</h3>
+                <span><h4><a href="{% url 'review_detail' review.title review.author %}">Read</a></h4></span>
+              </div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+  {% endblock %}
