@@ -4,7 +4,7 @@
 import requests
 
 # Replace YOUR_API_KEY with your actual API key
-api_key = '0054701133c7db286d97296dffb4f6a9'
+api_key = 'api'
 
 # Search for movies by title
 title = 'Avatar'
