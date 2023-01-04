@@ -10,5 +10,4 @@ urlpatterns = [
     path('reviews/<str:title>/<str:author>/', views.review_detail, name='review_detail'),
 
 
-
 ]

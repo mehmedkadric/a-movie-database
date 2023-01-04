@@ -110,3 +110,9 @@
 	text-decoration: underline;
 }
 
+
+.img-fluid{
+    width: 500px;
+    height: 500px;
+    margin-top: 20px;
+}
