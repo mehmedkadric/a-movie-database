@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<body style="background-color: rgb(10, 1, 68);"></body>
+<div class="container mt-5">
+    <div style="background-color:aliceblue" class="card shadow-lg">
+        <div class="card-body p-5">
+            <div class="row">
+                <div class="col-md-4 text-center">
+                    <img src="{{ review_image.image }}" class="img-fluid rounded" alt="Movie Poster">
+                </div>
+                <div class="col-md-8">
+                    <h1 class="font-weight-bold mb-3">{{ movie.title }}</h1>
+                    <p class="lead mb-4">
+                        {% for genre in movie.genres %}
+                        <span style="background-color:rgb(112, 116, 116) ;" class="badge badge-primary p-2 mr-2">{{ genre }}</span>
+                        {% endfor %}
+                    </p>
+                    <p class="text-justify">{{ movie.overview }}</p>
+                    
+                </div>
+                <h2 class="font-weight-bold mt-5 mb-3"><br>Author Reviews:</h2>
+                    <div class="row">
+                        {% include 'author_list.html' %}
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
