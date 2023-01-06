@@ -2,20 +2,34 @@
 {% load static %}
 
 {% block content %}
-<head>
-      <link rel="stylesheet" type="text/css" href="{%static 'style.css' %}">
+
+<head >
+  <meta charset="ISO-8859-1">
+  <link rel="stylesheet" type="text/css" href="{%static 'style.css' %}">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
-
 <body>
-
-<section class="review-detail">
-  <div class="container">
-    <h2>{{ review.title }}</h2>
-    <h3>Author: {{ review.author }}</h3>
-    <p>{{ review.content }}</p>
-  </div>
-</section>
-
+  <section class="review-detail">
+    <div class="container">
+      <div class="row">
+        <div class="col-3 review-image-container">
+          <img src="{{ review_image.image }}" alt="{{ review.title }}" class="review-image">
+        </div>
+        <div class="col-9">
+          <h1 class="review-title">{{ review.title }}</h1>
+          <h2 class="review-author">Author: {{ review.author }}</h2>
+          <div class="review-content">
+            {{ review.content|safe|linebreaks }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <script>
+    $(document).ready(function() {
+      $('#review-content a').attr('target', '_blank');
+    });
+  </script>
 </body>
 </html>
 {% endblock %}

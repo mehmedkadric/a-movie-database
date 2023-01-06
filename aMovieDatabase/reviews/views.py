@@ -12,7 +12,6 @@ def reviews(request):
     }
     return render(request, 'reviews.html', {'reviews': reviews, 'review_images': review_images , 'content' : content})
 
-
 def author_detail(request, title):
   # Get the reviews for the movie with the specified title
   movie_reviews = Reviewinfo.objects.filter(title=title)
@@ -22,8 +21,8 @@ def author_detail(request, title):
 
 def review_detail(request, title, author):
     review = Reviewinfo.objects.filter(title=title, author=author).first()
-    return render(request, 'review_detail.html', {'review': review})
-
+    review_image = ReviewImage.objects.filter(caption=title).first()
+    return render(request, 'review_detail.html', {'review': review, 'review_image': review_image})
 
 
 
