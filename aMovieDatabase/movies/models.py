@@ -22,7 +22,9 @@ class Movie(models.Model):
     vote_average = models.FloatField()
     vote_count = models.PositiveIntegerField()
 
-class ReviewImage(models.Model):
-    movie = models.ForeignKey(Movie, on_delete=models.CASCADE, related_name='review_image')
-    image = models.ImageField(upload_to='review_images')
+class MovieImage(models.Model):
+    movie = models.ForeignKey('Movie', on_delete=models.CASCADE)
+    image = models.URLField()
     caption = models.CharField(max_length=255)
+
+
