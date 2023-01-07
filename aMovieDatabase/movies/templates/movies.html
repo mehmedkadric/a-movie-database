@@ -6,6 +6,7 @@
 <head>
   <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
 </head>
+
 <body style="background-color: rgb(26, 25, 25);">
   <section class="bg-dark">
     <div class="container mt-5">
@@ -18,20 +19,20 @@
       </div>
       <div class="row">
         {% for movie in movies %}
-          {% for review_image in review_images %}
-            {% if review_image.caption == movie.title %}
-              <div class="col-lg-4 col-md-6 mb-4 border-dark">
-                <div class="card h-100 shadow-sm bg-dark ">
-                  <a href="{{ movie.title }}">
-                    <img src="{{ review_image.image }}" class="card-img-top" alt="Movie Poster">
-                    <div class="card-body bg-dark">
-                      <h5 class="card-title font-weight-bold text-light">{{ movie.title }}</h5>
-                    </div>
-                  </a>
-                </div>
+        {% for review_image in review_images %}
+        {% if review_image.caption == movie.title %}
+        <div class="col-lg-4 col-md-6 mb-4 border-dark">
+          <div class="card h-100 shadow-sm bg-dark ">
+            <a href="{{ movie.title }}">
+              <img src="{{ review_image.image }}" class="card-img-top" alt="Movie Poster">
+              <div class="card-body bg-dark">
+                <h5 class="card-title font-weight-bold text-light">{{ movie.title }}</h5>
               </div>
-            {% endif %}
-          {% endfor %}
+            </a>
+          </div>
+        </div>
+        {% endif %}
+        {% endfor %}
         {% endfor %}
       </div>
     </div>
@@ -39,9 +40,13 @@
 </body>
 
 <style>
-  .row a{
+  .row a {
     text-decoration: none;
     color: aliceblue;
+  }
+
+  body {
+    background-image: url('https://wallpaperaccess.com/full/1091558.jpg');
   }
 </style>
 {% endblock %}

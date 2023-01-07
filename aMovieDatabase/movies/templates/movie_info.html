@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 {% load static %}
-
+ 
 {% block content %}
-
-<body style="background-color: rgb(10, 1, 68);"></body>
+ 
+<body></body>
 <div class="container mt-5">
     <div style="background-color:aliceblue" class="card shadow-lg">
         <div class="card-body p-5">
@@ -19,7 +19,7 @@
                         {% endfor %}
                     </p>
                     <p class="text-justify">{{ movie.overview }}</p>
-                    
+ 
                 </div>
                 <h2 class="font-weight-bold mt-5 mb-3"><br>Author Reviews:</h2>
                     <div class="row">
@@ -29,4 +29,10 @@
         </div>
     </div>
 </div>
+
+<style>
+    body{
+        background-image: url('https://wallpaperaccess.com/full/1091558.jpg');
+    }
+</style>
 {% endblock %}

@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .models import Movie
-from reviews.models import ReviewImage,Reviewinfo
+from reviews.models import ReviewImage, Reviewinfo
 import json
  
  
