@@ -18,6 +18,26 @@
                         <span style="background-color:rgb(112, 116, 116) ;" class="badge badge-primary p-2 mr-2">{{ genre }}</span>
                         {% endfor %}
                     </p>
+                       <div>
+                        {% if request.user.is_authenticated %}
+                        {% if movie.title in watchlist_titles %}
+                            <form method="post">
+                                {% csrf_token %}
+                                <input type="hidden" name="watchlist_remove" value="1">
+                                <button type="submit" class="btn btn-danger btn-lg btn-block mt-5">Remove from Watchlist</button>
+                            </form>
+                        {% else %}
+                            <form method="post">
+                                {% csrf_token %}
+                                <input type="hidden" name="watchlist_add" value="1">
+                                <button type="submit" class="btn btn-success btn-lg btn-block mt-5">Add to Watchlist</button>
+                            </form>
+                        {% endif %}
+                    {% else %}
+                        <a href="{% url 'login' %}" class="btn btn-primary">Login to add to Watchlist</a>
+                    {% endif %}
+                    </div>
+                    <br>
                     <p class="text-justify">{{ movie.overview }}</p>
                     
                 </div>
