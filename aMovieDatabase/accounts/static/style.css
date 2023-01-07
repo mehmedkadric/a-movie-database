@@ -190,3 +190,9 @@
 .col-9 {
   box-shadow: 0 8px 10px -5px rgba(0, 0, 0, 0.4), 0 -8px 10px -5px rgba(0, 0, 0, 0.4), 8px 0 10px -5px rgba(0, 0, 0, 0.4), -8px 0 10px -5px rgba(0, 0, 0, 0.4);
 }
+
+.pagination {
+   display: flex;
+  justify-content: center;
+  align-items: center;
+}

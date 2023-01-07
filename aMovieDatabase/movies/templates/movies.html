@@ -22,7 +22,7 @@
             {% if review_image.caption == movie.title %}
               <div class="col-lg-4 col-md-6 mb-4 border-dark">
                 <div class="card h-100 shadow-sm bg-dark ">
-                  <a href="{{ movie.title }}">
+                  <a href="details/{{ movie.title }}">
                     <img src="{{ review_image.image }}" class="card-img-top" alt="Movie Poster">
                     <div class="card-body bg-dark">
                       <h5 class="card-title font-weight-bold text-light">{{ movie.title }}</h5>

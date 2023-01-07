@@ -5,7 +5,8 @@ import json
 from django.core.paginator import Paginator, PageNotAnInteger,EmptyPage
  
 def movie(request):
-    movies = Movie.objects.all()
+    movies = Movie.objects.exclude(title__regex=r'^\d+').order_by('title')
+
     movie_image = MovieImage.objects.values('caption', 'image').distinct()
 
     paginator = Paginator(movies, 12)
