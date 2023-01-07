@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Movie, MovieImage
 from reviews.models import Reviewinfo
+from reviews.forms import ReviewForm
 import json
 from django.core.paginator import Paginator, PageNotAnInteger,EmptyPage
  
@@ -21,9 +22,9 @@ def movie(request):
     context = {'movies': movies, 'movie_image': movie_image}
     return render(request, 'movies.html', context)
 
- 
- 
- 
+
+
+
 def movie_detail(request, title):
     # Get the reviews for the movie with the specified title
     movie = Movie.objects.filter(title=title).values()[0]
@@ -31,5 +32,26 @@ def movie_detail(request, title):
     movie_image = MovieImage.objects.filter(caption=title).first()
     x = json.loads(movie['genres'])
     movie['genres'] = [d['name'] for d in x]
+
+    username = request.user.username
+    # Create the form with the title and username as arguments
+    form = ReviewForm(title=title, username=username)
+    print(username)
+
+    if request.method == 'POST':
+        # Bind the form to the POST data
+        form = ReviewForm(request.POST, title=title)
+        if form.is_valid():
+            # Save the form data to the database
+            review = form.save(commit=False)
+            review.title = title
+            review.save()
+            # Redirect to the same page to show the updated list of reviews
+            return redirect('movie_detail', title=title)
+
     # Render the reviews template with the movie reviews
-    return render(request, 'movie_info.html', {'movie': movie, 'reviews': reviews , 'movie_image':  movie_image})
+    return render(request, 'movie_info.html', {'movie': movie, 'reviews': reviews , 'movie_image':  movie_image, 'form': form,'title': title})
+
+
+
+
