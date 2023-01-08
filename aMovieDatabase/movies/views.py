@@ -4,12 +4,31 @@ from reviews.models import Reviewinfo
 from reviews.forms import ReviewForm
 import json
 from django.core.paginator import Paginator, PageNotAnInteger,EmptyPage
- 
+
 def movie(request):
+    # Get the genre from the request
+    genre = request.GET.get('genre')
+
+    # Get a queryset of all the movies
     movies = Movie.objects.exclude(title__regex=r'^\d+').order_by('title')
 
-    movie_image = MovieImage.objects.values('caption', 'image').distinct()
+    # Flatten the list of genres for each movie, and get the unique values
+    available_genres = set()
+    for movie in movies:
+        x = json.loads(movie.genres)
+        movie.genres = [d['name'] for d in x]
+        available_genres.update(movie.genres)
+    available_genres = list(available_genres)
 
+    # Filter the movies queryset by the genre
+    if genre:
+        movies = movies.filter(genres__contains=genre)
+
+    movie_image = MovieImage.objects.values('caption', 'image').distinct()
+    years = Movie.objects.dates('release_date', 'year', order='ASC').distinct()
+    year = request.GET.get('year')
+    if year:
+        movies = movies.filter(release_date__year=year)
     paginator = Paginator(movies, 12)
     page = request.GET.get('page')
     try:
@@ -19,8 +38,16 @@ def movie(request):
     except EmptyPage:
         movies = paginator.page(paginator.num_pages)
 
-    context = {'movies': movies, 'movie_image': movie_image}
+    context = {
+        'movies': movies,
+        'movie_image': movie_image,
+        'years': years,
+        'selected_year': year,
+        'available_genres': available_genres,
+        'genre': genre,
+    }
     return render(request, 'movies.html', context)
+
 
 
 
