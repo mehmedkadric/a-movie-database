@@ -1,14 +1,14 @@
 {% load static %}
- 
+
 {% block content %}
- 
+
 <head>
     <meta charset="UTF-8">
   <link rel="stylesheet" type="text/css" href="{%static 'style.css' %}">
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
- 
- 
+
+
  <body>
  <div class="container">
   <div class="row">
@@ -26,12 +26,40 @@
        <div class="comment-body">
   <p>{{ review.content|truncatechars:200|safe|linebreaks }} <a href="{% url 'review_detail' review.title review.author %}">Read More</a></p>
 </div>
- 
       </div>
     {% endfor %}
   </div>
+<form method="post">
+  {% csrf_token %}
+  {{ form.title }}
+  <div class="comment-container">
+    <div class="comment-header">
+      <div class="comment-author-pic-container">
+        <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" class="comment-author-pic">
+      </div>
+      <div class="comment-header-text">
+       <h3 class="title-text"><span id="title">Write a review for </span>  {{ title }}</h3> <br>
+        {% if form.author.errors %}
+          <div class="error">{{ form.author.errors }}</div>
+        {% endif %}
+        {{ form.author.label_tag }} {{ form.author }}
+      </div>
+    </div>
+    <div class="comment-body">
+      {% if form.content.errors %}
+        <div class="error">{{ form.content.errors }}</div>
+      {% endif %}
+      {{ form.content.label_tag }} <br>
+      {{ form.content }}
+    </div>
+  </div>
+  <input type="submit" value="Submit">
+</form>
+
+
+
 </div>
- 
+
  
 </body>
 {% endblock %}
