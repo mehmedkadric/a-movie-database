@@ -1,11 +1,90 @@
-{% extends "base.html" %}
-
-{% block title %}Home{% endblock %}
-
+{% extends 'base.html' %}
+{% load static %}
 {% block content %}
-  <div class="container mt-5">
-    <h1>A Movie Database</h1>
-    <p>Here you can find information about movies, TV shows, and other entertainment content.</p>
-    <a href="#" class="btn btn-primary">Browse Movies</a>
+
+<head>
+  <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+</head>
+
+<body style="height: 100%; width: 100%; background-image: url('https://wallpaper.dog/large/20493501.jpg')">
+  <div class="welcome-section">
+    <h1 style="text-align: center;">Welcome to <span style="color: orange;">A</span>MovieDB</h1>
+    <p style="color: rgb(255, 255, 255);"><strong><span>The ultimate destination for movie lovers</span></strong></p>
+    {% if not user.is_authenticated %}
+    <a href="{% url 'login' %}" class="btn btn-lg btn-secondary">Log In</a>
+    <a href="{% url 'register' %}" class="btn btn-lg btn-secondary mr-2">Sign Up</a>
+    {% else %}
+    <a href="/movies" class="btn btn-lg btn-secondary mr-2">See More</a>
+    {% endif %}
   </div>
+  <div class="welcome-section1">
+    <div class="container">
+
+    </div>
+  </div>
+</body>
+
+<style>
+  html,
+  body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  .welcome-section1 {
+    background-image: url('https://wallpaperaccess.com/full/2030097.jpg');
+    background-size: cover;
+    background-position: center;
+    color: #fff;
+    padding: 100px 0;
+    border-radius: 30px;
+    clip-path: polygon(73% 0, 0 0, 63% 100%);
+    height: 100vh;
+    width: 100vw;
+    position: relative;
+    z-index: 1;
+  }
+
+  .welcome-section h1 {
+    font-size: 50px;
+    font-weight: 700;
+    text-align: center;
+  }
+
+  .welcome-section p {
+    font-size: 20px;
+    text-align: center;
+  }
+
+  .welcome-section .btn {
+    font-size: 18px;
+    border-radius: 50px;
+    background-color: orange;
+    color: #fff;
+    padding: 15px 30px;
+    transition: 0.3s;
+    display: inline-block;
+  }
+
+  .welcome-section .btn:hover {
+    background-color: #fff;
+    color: orange;
+  }
+
+  .welcome-section {
+    position: absolute;
+    top: 70%;
+    left: 0;
+    transform: translateY(-50%);
+    text-align: center;
+    color: white;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+  }
+</style>
+
 {% endblock %}

@@ -3,9 +3,15 @@
 
 {% block content %}
 
+<head>
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+        integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+</head>
+
 <body style="background-color: rgb(10, 1, 68);"></body>
 <div class="container mt-5">
-    <div style="background-color:aliceblue" class="card shadow-lg">
+    <div class="card shadow-lg bg-light">
         <div class="card-body p-5">
             <div class="row">
                 <div class="col-md-4 text-center">
@@ -15,18 +21,54 @@
                     <h1 class="font-weight-bold mb-3">{{ movie.title }}</h1>
                     <p class="lead mb-4">
                         {% for genre in movie.genres %}
-                        <span style="background-color:rgb(112, 116, 116) ;" class="badge badge-primary p-2 mr-2">{{ genre }}</span>
+                        <span class="badge badge-secondary p-2 mr-2">{{ genre }}</span>
                         {% endfor %}
                     </p>
-                    <p class="text-justify">{{ movie.overview }}</p>
-                    
+                    <div class="mr-5 font-weight-bold text-secondary">
+                        Overview:
+                    </div>
+                    <div class="mr-5">
+                        {{ movie.overview }} 
+                    </div>
+                    <br>
+                    <div class="mr-5 font-weight-bold text-secondary">
+                        Rating:
+                    </div>
+                    <div class="mr-5">
+                        {{ movie.vote_average }} <i class="fas fa-star"></i>
+                    </div>
+                    <br>
+                    <div class="mr-5 font-weight-bold text-secondary">
+                        Release date:
+                    </div>
+                    <div class="mr-5">
+                        {{ movie.release_date }}
+                    </div>
+                    <br>
+                    <div class="mr-5 font-weight-bold text-secondary">
+                        Runtime:
+                    </div>
+                    <div class="mr-5">
+                        {{ movie.runtime }} minutes
+                    </div>
+                    <br>
+                    <div class="mr-5 font-weight-bold text-secondary">
+                        Status:
+                    </div>
+                    <div class="mr-5">
+                        {{ movie.status }}
+                    </div>
                 </div>
                 <h2 class="font-weight-bold mt-5 mb-3"><br>Author Reviews:</h2>
-                    <div class="row">
-                        {% include 'author_list.html' %}
-                    </div>
+                <div class="row">
+                    {% include 'author_list.html' %}
+                </div>
             </div>
         </div>
     </div>
 </div>
+
+
+
+
 {% endblock %}
