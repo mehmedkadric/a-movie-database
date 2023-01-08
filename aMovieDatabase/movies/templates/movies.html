@@ -34,45 +34,7 @@
           {% endfor %}
         {% endfor %}
       </div>
-     {% if movies.has_other_pages %}
-  <ul class="pagination">
-    {% if movies.has_previous %}
-      <li class="page-item"><a class="page-link" href="?page={{ movies.previous_page_number }}">Previous</a></li>
-    {% endif %}
-    {% if movies.number > 5 %}
-  <li class="page-item"><a class="page-link" href="?page=1">1</a></li>
-  <li class="page-item disabled"><a class="page-link" href="#">...</a></li>
-{% elif movies.number == 5 %}
-  <li class="page-item"><a class="page-link" href="?page=1">1</a></li>
-{% endif %}
-
-{% for page_number in movies.paginator.page_range %}
-  {% if movies.number|add:'-3' <= page_number and page_number <= movies.number|add:'3' %}
-    {% if page_number == movies.number %}
-      <li class="page-item active"><a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a></li>
-    {% else %}
-      <li class="page-item"><a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a></li>
-    {% endif %}
-  {% elif movies.paginator.page_range|slice:'2:3' == page_number|slice:'2:3' or movies.paginator.page_range|slice:'-3:-2' == page_number|slice:'-3:-2' %}
-    <li class="page-item disabled"><a class="page-link" href="#">...</a></li>
-  {% endif %}
-{% endfor %}
-
-    {% if movies.paginator.num_pages > 5 and movies.number != movies.paginator.num_pages  %}
-  <li class="page-item disabled"><a class="page-link" href="#">...</a></li>
-  <li class="page-item"><a class="page-link" href="?page={{ movies.paginator.num_pages }}">{{ movies.paginator.num_pages }}</a></li>
-{% elif movies.paginator.num_pages == movies.paginator.num_pages %}
-  <li class="page-item"><a class="page-link" href="?page={{ movies.paginator.num_pages }}">{{ movies.paginator.num_pages }}</a></li>
-{% endif %}
-
-
-{% if movies.has_next %}
-  <li class="page-item"><a class="page-link" href="?page={{ movies.next_page_number }}">Next</a></li>
-{% endif %}
-
-  </ul>
-{% endif %}
-
+        {% include 'pagination.html' %}
 </div>
 </section>
 </body>
