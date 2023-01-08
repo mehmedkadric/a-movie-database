@@ -34,4 +34,3 @@ def review_detail(request, title, author):
 
 
 
-
