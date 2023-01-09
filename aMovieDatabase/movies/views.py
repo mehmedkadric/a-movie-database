@@ -72,11 +72,8 @@ def movie(request):
 
 
 
-
-
-
 def movie_detail(request, title):
-    # Get the reviews for the movie with the specified title
+    # Get the movie and reviews for the movie with the specified title
     movie = Movie.objects.filter(title=title).values()[0]
     reviews = Reviewinfo.objects.filter(title=title)
     movie_image = MovieImage.objects.filter(caption=title).first()
@@ -89,6 +86,8 @@ def movie_detail(request, title):
         messages.error(request, 'You must be logged in to use these perks!')
         return redirect('home')
     username = request.user.username
+    # Check if the current user has already submitted a review for this movie
+    user_has_submitted_review = Reviewinfo.objects.filter(title=title, author=request.user.username).exists()
     # Create the form with the title and username as arguments
     form = ReviewForm(title=title, username=username)
 
@@ -96,12 +95,17 @@ def movie_detail(request, title):
         # Bind the form to the POST data
         form = ReviewForm(request.POST, title=title)
         if form.is_valid():
-            # Save the form data to the database
-            review = form.save(commit=False)
-            review.title = title
-            review.save()
-            # Redirect to the same page to show the updated list of reviews
-            return redirect('movie_detail', title=title)
+            if not user_has_submitted_review:
+                # Save the form data to the database
+                review = form.save(commit=False)
+                review.title = title
+                review.author = request.user.username
+                review.save()
+                # Redirect to the same page to show the updated list of reviews
+                return redirect('movie_detail', title=title)
+            else:
+                # Display an error message if the user has already submitted a review
+                pass
         if 'watchlist_add' in request.POST:
             # Create a new Watchlist object with the movie title and user field set to the current movie title and logged-in user, respectively
             Watchlist.objects.create(movie=title, user=request.user)
@@ -113,5 +117,5 @@ def movie_detail(request, title):
             # Redirect to the same page to show the updated watchlist
             return redirect('movie_detail', title=title)
 
-    # Render the reviews template with the movie reviews
-    return render(request, 'movie_info.html', {'movie': movie, 'reviews': reviews , 'movie_image':  movie_image, 'form': form,'title': title, 'watchlist_titles': watchlist_titles})
+    # Render the reviews template with the movie reviews and form
+    return render(request, 'movie_info.html', {'movie': movie, 'reviews': reviews, 'movie_image': movie_image, 'form': form, 'title': title, 'watchlist_titles': watchlist_titles, 'user_has_submitted_review': user_has_submitted_review})

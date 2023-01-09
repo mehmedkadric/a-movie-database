@@ -53,13 +53,18 @@
       {{ form.content }}
     </div>
   </div>
+{% if user_has_submitted_review %}
+  <div class="error">You have already submitted a review for this movie.</div>
+{% else %}
   <input type="submit" value="Submit">
+{% endif %}
+
 </form>
 
 
 
 </div>
 
- 
+
 </body>
 {% endblock %}
