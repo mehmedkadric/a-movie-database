@@ -3,6 +3,12 @@
 
 {% block content %}
 
+<head>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+        integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+</head>
+
 <body style="background-color: rgb(10, 1, 68);"></body>
 <div class="container mt-5">
     <div style="background-color:aliceblue" class="card shadow-lg">
@@ -18,7 +24,48 @@
                         <span style="background-color:rgb(112, 116, 116) ;" class="badge badge-primary p-2 mr-2">{{ genre }}</span>
                         {% endfor %}
                     </p>
-                       <div>
+                    <br>
+                    <div class="mr-5 font-weight-bold text-secondary">
+                        Overview:
+                    </div>
+
+                    <div class="mr-5">
+                        <hr>
+                        {{ movie.overview }} 
+                    </div>
+                    <br>
+                    <div class="mr-5 font-weight-bold text-secondary">
+                        Rating:
+                    </div>
+                    <div class="mr-5">
+                        <hr>
+                        {{ movie.vote_average }} <i class="fas fa-star"></i>
+                    </div>
+                    <br>
+                    <div class="mr-5 font-weight-bold text-secondary">
+                        Release date:
+                    </div>
+                    <div class="mr-5">
+                        <hr>
+                        {{ movie.release_date }}
+                    </div>
+                    <br>
+                    <div class="mr-5 font-weight-bold text-secondary">
+                        Runtime:
+                    </div>
+                    <div class="mr-5">
+                        <hr>
+                        {{ movie.runtime }} minutes
+                    </div>
+                    <br>
+                    <div class="mr-5 font-weight-bold text-secondary">
+                        Status:
+                    </div>
+                    <div class="mr-5">
+                        <hr>
+                        {{ movie.status }}
+                    </div>
+                    <div>
                         {% if request.user.is_authenticated %}
                         {% if movie.title in watchlist_titles %}
                             <form method="post">
@@ -37,9 +84,8 @@
                         <a href="{% url 'login' %}" class="btn btn-primary">Login to add to Watchlist</a>
                     {% endif %}
                     </div>
-                    <br>
-                    <p class="text-justify">{{ movie.overview }}</p>
-                    
+                    <hr>
+
                 </div>
                 <h2 class="font-weight-bold mt-5 mb-3"><br>Author Reviews:</h2>
             </div>
