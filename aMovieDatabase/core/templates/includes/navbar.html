@@ -4,6 +4,7 @@
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarNav" >
+    {% if user.is_authenticated %}
     <ul class="navbar-nav">
       <li class="nav-item">
         <a class="nav-link" href="/movies">Movies</a>
@@ -15,6 +16,7 @@
         <a class="nav-link" href="#">Contact</a>
       </li>
     </ul>
+    {% endif %}
     <ul class="navbar-nav ml-auto">
       {% if user.is_authenticated %}
       <li class="nav-item mx-2"><a href="#">{{ user.username }}</a></li>

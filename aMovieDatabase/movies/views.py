@@ -4,6 +4,8 @@ from reviews.models import Reviewinfo
 from reviews.forms import ReviewForm
 import json
 from django.core.paginator import Paginator, PageNotAnInteger,EmptyPage
+from django.contrib import messages
+
 
 def movie(request):
     # Get the genre from the request
@@ -80,9 +82,12 @@ def movie_detail(request, title):
     movie_image = MovieImage.objects.filter(caption=title).first()
     x = json.loads(movie['genres'])
     movie['genres'] = [d['name'] for d in x]
-
-    watchlist_titles = [watchlist.movie for watchlist in Watchlist.objects.filter(user=request.user)]
-
+    try:
+        watchlist_titles = [watchlist.movie for watchlist in Watchlist.objects.filter(user=request.user)]
+    except TypeError:
+        # redirect the user to the home page
+        messages.error(request, 'You must be logged in to use these perks!')
+        return redirect('home')
     username = request.user.username
     # Create the form with the title and username as arguments
     form = ReviewForm(title=title, username=username)

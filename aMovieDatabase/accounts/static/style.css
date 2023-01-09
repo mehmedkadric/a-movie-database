@@ -21,7 +21,10 @@
     font-size: 15px;
     font-weight: bold;
 }
-
+.message.success {
+  z-index: 99;
+  position: absolute;
+}
 
 /* REGISTER */
 

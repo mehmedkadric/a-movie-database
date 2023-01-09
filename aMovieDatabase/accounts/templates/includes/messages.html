@@ -1,5 +1,5 @@
 {% if messages %}
-<div aria-live="polite" aria-atomic="true" style="position: relative;">
+<div aria-live="polite" aria-atomic="true" style="position: relative; z-index: 999;">
       {% for message in messages %}
   <div class="toast {% if message.tags == 'success' %}bg-success{% else %}bg-danger{% endif %}" style="position: absolute; top: 0; right: 0; font-size:20px;width: 1200px;">
     <div class="toast-header">
