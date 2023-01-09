@@ -75,6 +75,9 @@ def movie(request):
 def movie_detail(request, title):
     # Get the movie and reviews for the movie with the specified title
     movie = Movie.objects.filter(title=title).values()[0]
+    hours = movie['runtime'] // 60
+    minutes = movie['runtime'] % 60
+    formatted_runtime = f"{hours} hours {minutes} minutes"
     reviews = Reviewinfo.objects.filter(title=title)
     movie_image = MovieImage.objects.filter(caption=title).first()
     x = json.loads(movie['genres'])
@@ -118,4 +121,4 @@ def movie_detail(request, title):
             return redirect('movie_detail', title=title)
 
     # Render the reviews template with the movie reviews and form
-    return render(request, 'movie_info.html', {'movie': movie, 'reviews': reviews, 'movie_image': movie_image, 'form': form, 'title': title, 'watchlist_titles': watchlist_titles, 'user_has_submitted_review': user_has_submitted_review})
+    return render(request, 'movie_info.html', {'movie': movie, 'reviews': reviews, 'movie_image': movie_image, 'form': form, 'title': title, 'watchlist_titles': watchlist_titles, 'user_has_submitted_review': user_has_submitted_review, 'formatted_runtime': formatted_runtime})
