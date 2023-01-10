@@ -185,11 +185,11 @@ form textarea {
 }
 
 form input[type="submit"] {
-  width: 100%;
-  background-color: #4CAF50;
+  width: 50%;
+  background-color: #010101;
   color: white;
   padding: 14px 20px;
-  margin: 8px 0;
+  margin-left: 25%;
   border: none;
   border-radius: 4px;
   cursor: pointer;
@@ -278,7 +278,7 @@ form input[type="submit"]:hover {
 .filter label {
   font-size: 1rem;
   color: white;
-  margin-right: 0.5rem;
+  text-align: left;
 }
 
 .filter select {
@@ -313,6 +313,22 @@ form input[type="submit"]:hover {
 .filter button:hover {
   background-color: #0069d9;
   border-color: #0062cc;
+}
+
+#vote-average-filter-min, #vote-average-filter-max, #genre-filter, #year-filter {
+  margin-left: -2em;
+	color: rgb(255, 255, 255);
+  background-color: black;
+  width: 150px;
+}
+.form-control:focus {
+	border-color: #5cb85c;
+}
+.form-control input, .btn {
+	border-radius: 3px;
+  color: rgb(255, 255, 255);
+  background-color: black;
+  width: 150px;
 }
 
 /* movies */

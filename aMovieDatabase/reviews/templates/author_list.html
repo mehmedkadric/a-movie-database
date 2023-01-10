@@ -3,63 +3,68 @@
 {% block content %}
 
 <head>
-    <meta charset="UTF-8">
+  <meta charset="UTF-8">
   <link rel="stylesheet" type="text/css" href="{%static 'style.css' %}">
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 
- <body>
- <div class="container">
-  <div class="row">
-    {% for review in reviews %}
+<body>
+  <div class="container">
+    <div class="row">
+      {% for review in reviews %}
       <div class="comment-container">
         <div class="comment-header">
           <div class="comment-author-pic-container">
-            <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png"  class="comment-author-pic">
+            <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" class="comment-author-pic">
           </div>
           <div class="comment-header-text">
-            <h3>A review by  {{review.author }}</h3>
+            <h3>A review by {{review.author }}</h3>
             <span>{{ review.author }}</span>
           </div>
         </div>
-       <div class="comment-body">
-  <p>{{ review.content|truncatechars:200|safe|linebreaks }} <a href="{% url 'review_detail' review.title review.author %}">Read More</a></p>
-</div>
+        <div class="comment-body">
+          <p>{{ review.content|truncatechars:200|safe|linebreaks }} <a
+              href="{% url 'review_detail' review.title review.author %}">Read More</a></p>
+        </div>
       </div>
-    {% endfor %}
-  </div>
-<form method="post">
-  {% csrf_token %}
-  {{ form.title }}
-  <div class="comment-container">
-    <div class="comment-header">
-      <div class="comment-author-pic-container">
-        <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" class="comment-author-pic">
-      </div>
-      <div class="comment-header-text">
-       <h3 class="title-text"><span id="title">Write a review for </span>  {{ title }}</h3> <br>
-        {% if form.author.errors %}
-          <div class="error">{{ form.author.errors }}</div>
-        {% endif %}
-        {{ form.author.label_tag }} {{ form.author }}
-      </div>
+      {% endfor %}
     </div>
-    <div class="comment-body">
-      {% if form.content.errors %}
-        <div class="error">{{ form.content.errors }}</div>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.title }}
+      <div class="comment-container">
+        <div class="comment-header">
+          <div class="comment-author-pic-container">
+            <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" class="comment-author-pic">
+          </div>
+          <div class="comment-header-text">
+            <h3 class="title-text"><span id="title">Write a review for </span> {{ title }}</h3> <br>
+            {% if form.author.errors %}
+            <div class="error">{{ form.author.errors }}</div>
+            {% endif %}
+            {{ form.author.label_tag }} {{ form.author }}
+          </div>
+        </div>
+        <div class="comment-body">
+          {% if form.content.errors %}
+          <div class="error">{{ form.content.errors }}</div>
+          {% endif %}
+          {{ form.content.label_tag }} <br>
+          {{ form.content }}
+        </div>
+      </div>
+      {% if user_has_submitted_review %}
+      <div class="error">You have already submitted a review for this movie.</div>
+      {% else %}
+      <input type="submit" value="Submit">
       {% endif %}
-      {{ form.content.label_tag }} <br>
-      {{ form.content }}
-    </div>
+    </form>
+
+
+
   </div>
-  <input type="submit" value="Submit">
-</form>
 
 
-
-</div>
-
- 
 </body>
 {% endblock %}
