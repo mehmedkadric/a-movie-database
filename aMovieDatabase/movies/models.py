@@ -34,4 +34,9 @@ class Watchlist(models.Model):
     movie = models.CharField(max_length=255)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
+class Rating(models.Model):
+    title = models.CharField(max_length=255)
+    username = models.CharField(max_length=255)
+    rating = models.IntegerField()
+
 

@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
-from .models import Movie, MovieImage,Watchlist
+from .models import Movie, MovieImage,Watchlist, Rating
 from reviews.models import Reviewinfo
 from reviews.forms import ReviewForm
-import json
+import json, time
 from django.core.paginator import Paginator, PageNotAnInteger,EmptyPage
 from django.contrib import messages
 
@@ -77,10 +77,6 @@ def movie(request):
     return render(request, 'movies.html', context)
 
 
-
-
-
-
 def movie_detail(request, title):
     # Get the reviews for the movie with the specified title
     movie = Movie.objects.filter(title=title).values()[0]
@@ -94,6 +90,7 @@ def movie_detail(request, title):
     user_has_submitted_review = Reviewinfo.objects.filter(title=title, author=request.user.username).exists()
     try:
         watchlist_titles = [watchlist.movie for watchlist in Watchlist.objects.filter(user=request.user)]
+        user_rating = Rating.objects.filter(username=request.user.username, title=title).first()
     except TypeError:
         # redirect the user to the home page
         messages.error(request, 'You must be logged in to use these perks!')
@@ -116,6 +113,7 @@ def movie_detail(request, title):
                 return redirect('movie_detail', title=title)
             else:
                 # Display an error message if the user has already submitted a review
+                messages.error(request, 'You have already submitted a review for this movie!')
                 pass
         if 'watchlist_add' in request.POST:
             # Create a new Watchlist object with the movie title and user field set to the current movie title and logged-in user, respectively
@@ -127,6 +125,22 @@ def movie_detail(request, title):
             Watchlist.objects.filter(movie=title, user=request.user).delete()
             # Redirect to the same page to show the updated watchlist
             return redirect('movie_detail', title=title)
+        # Handle the rating submission
+        if 'rating' in request.POST:
+            try:
+                rating = Rating.objects.get(username=request.user.username, title=title)
+                rating.rating = request.POST['rating']
+                rating.save()
+                messages.success(request,'Your rating has been saved!')
+                return redirect('movie_detail', title=title)
+            except Rating.DoesNotExist:
+                Rating.objects.create(username=request.user.username, title=title, rating=request.POST['rating'])
+                return redirect('movie_detail', title=title)
+    return render(request, 'movie_info.html',
+                  {'movie': movie, 'reviews': reviews, 'movie_image': movie_image, 'form': form, 'title': title,
+                   'watchlist_titles': watchlist_titles, 'user_has_submitted_review': user_has_submitted_review,
+                   'formatted_runtime': formatted_runtime, 'user_rating': user_rating})
 
-    # Render the reviews template with the movie reviews
-    return render(request, 'movie_info.html', {'movie': movie, 'reviews': reviews , 'movie_image':  movie_image, 'form': form,'title': title, 'watchlist_titles': watchlist_titles, 'user_has_submitted_review': user_has_submitted_review, 'formatted_runtime': formatted_runtime})
+
+
+
