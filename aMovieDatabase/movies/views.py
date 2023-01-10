@@ -13,6 +13,7 @@ def movie(request):
     movie_image = MovieImage.objects.values('caption', 'image').distinct()
     vote_average_min = request.GET.get('vote_average_min')
     vote_average_max = request.GET.get('vote_average_max')
+    titleofRequest = request.GET.get('title')
     # Get a queryset of all the movies
     movies = Movie.objects.exclude(title__regex=r'^\d+').order_by('title')
 
@@ -41,6 +42,9 @@ def movie(request):
     if genre:
         movies = movies.filter(genres__contains=genre)
 
+    if titleofRequest:
+        movies = movies.filter(title__icontains=titleofRequest)
+
     years = Movie.objects.dates('release_date', 'year', order='ASC').distinct()
     year = request.GET.get('year')
     if year:
@@ -68,6 +72,7 @@ def movie(request):
         'sorted_movies': sorted_movies,
         'vote_average_min': vote_average_min,
         'vote_average_max': vote_average_max,
+        'titleofRequest': titleofRequest,
     }
     return render(request, 'movies.html', context)
 

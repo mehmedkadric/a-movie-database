@@ -314,7 +314,7 @@ form input[type="submit"]:hover {
   border-color: #0062cc;
 }
 
-#vote-average-filter-min, #vote-average-filter-max, #genre-filter, #year-filter {
+#vote-average-filter-min, #vote-average-filter-max, #genre-filter, #year-filter, #title-search {
   margin-left: -2em;
 	color: rgb(255, 255, 255);
   background-color: black;

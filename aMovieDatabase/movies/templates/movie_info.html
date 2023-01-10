@@ -16,6 +16,25 @@
             <div class="row">
                 <div class="col-md-4 text-center">
                     <img src="{{ movie_image.image }}" class="img-fluid rounded" alt="Movie Poster">
+                    <div>
+                        {% if request.user.is_authenticated %}
+                        {% if movie.title in watchlist_titles %}
+                            <form method="post">
+                                {% csrf_token %}
+                                <input type="hidden" name="watchlist_remove" value="1">
+                                <button type="submit" class="btn-danger btn-lg btn-block mt-5">Remove from Watchlist</button>
+                            </form>
+                        {% else %}
+                            <form method="post">
+                                {% csrf_token %}
+                                <input type="hidden" name="watchlist_add" value="1">
+                                <button type="submit" class="btn-success btn-lg btn-block mt-5">Add to Watchlist</button>
+                            </form>
+                        {% endif %}
+                    {% else %}
+                        <a href="{% url 'login' %}" class="btn btn-primary">Login to add to Watchlist</a>
+                    {% endif %}
+                    </div>
                 </div>
                 <div class="col-md-8">
                     <h1 class="font-weight-bold mb-3">{{ movie.title }} ( {{movie.release_date|date:"Y" }} )</h1>
@@ -64,25 +83,6 @@
                     <div class="mr-5">
                         <hr>
                         {{ movie.status }}
-                    </div>
-                    <div>
-                        {% if request.user.is_authenticated %}
-                        {% if movie.title in watchlist_titles %}
-                            <form method="post">
-                                {% csrf_token %}
-                                <input type="hidden" name="watchlist_remove" value="1">
-                                <button type="submit" class="btn btn-danger btn-lg btn-block mt-5">Remove from Watchlist</button>
-                            </form>
-                        {% else %}
-                            <form method="post">
-                                {% csrf_token %}
-                                <input type="hidden" name="watchlist_add" value="1">
-                                <button type="submit" class="btn btn-success btn-lg btn-block mt-5">Add to Watchlist</button>
-                            </form>
-                        {% endif %}
-                    {% else %}
-                        <a href="{% url 'login' %}" class="btn btn-primary">Login to add to Watchlist</a>
-                    {% endif %}
                     </div>
                     <hr>
 
