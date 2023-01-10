@@ -399,7 +399,7 @@ body{
   }
 
   /* Mobile-specific styles */
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 768px) {
   /* Make the featured movie section full-width */
   section {
       width: 100%;
@@ -410,15 +410,14 @@ body{
   }
   /* Adjust the spacing between movies in the listing */
   .movie-card {
-    width: 30%;
-    height: 40%;
+    width: 100%;
+    height: 70%;
     margin: 10px 1%;
-    float: left;
 }
   /* Reduce the size of the movie posters */
   .movie-card img {
-      width: 6em;
-      height: 35%;
+      width: 15em;
+      height: 45%;
   }
   /* Use a smaller font for the movie titles */
   .card-title {
