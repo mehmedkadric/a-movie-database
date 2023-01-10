@@ -16,6 +16,7 @@ def movie(request):
     # Get a queryset of all the movies
     movies = Movie.objects.exclude(title__regex=r'^\d+').order_by('title')
 
+    
     matching_movies = []
 
     for movie_image1 in movie_image:
@@ -82,6 +83,10 @@ def movie_detail(request, title):
     movie_image = MovieImage.objects.filter(caption=title).first()
     x = json.loads(movie['genres'])
     movie['genres'] = [d['name'] for d in x]
+    hours = movie['runtime'] // 60
+    minutes = movie['runtime'] % 60
+    formatted_runtime = f"{hours} hours {minutes} minutes"
+    user_has_submitted_review = Reviewinfo.objects.filter(title=title, author=request.user.username).exists()
     try:
         watchlist_titles = [watchlist.movie for watchlist in Watchlist.objects.filter(user=request.user)]
     except TypeError:
@@ -96,12 +101,17 @@ def movie_detail(request, title):
         # Bind the form to the POST data
         form = ReviewForm(request.POST, title=title)
         if form.is_valid():
-            # Save the form data to the database
-            review = form.save(commit=False)
-            review.title = title
-            review.save()
-            # Redirect to the same page to show the updated list of reviews
-            return redirect('movie_detail', title=title)
+            if not user_has_submitted_review:
+                # Save the form data to the database
+                review = form.save(commit=False)
+                review.title = title
+                review.author = request.user.username
+                review.save()
+                # Redirect to the same page to show the updated list of reviews
+                return redirect('movie_detail', title=title)
+            else:
+                # Display an error message if the user has already submitted a review
+                pass
         if 'watchlist_add' in request.POST:
             # Create a new Watchlist object with the movie title and user field set to the current movie title and logged-in user, respectively
             Watchlist.objects.create(movie=title, user=request.user)
@@ -114,4 +124,4 @@ def movie_detail(request, title):
             return redirect('movie_detail', title=title)
 
     # Render the reviews template with the movie reviews
-    return render(request, 'movie_info.html', {'movie': movie, 'reviews': reviews , 'movie_image':  movie_image, 'form': form,'title': title, 'watchlist_titles': watchlist_titles})
+    return render(request, 'movie_info.html', {'movie': movie, 'reviews': reviews , 'movie_image':  movie_image, 'form': form,'title': title, 'watchlist_titles': watchlist_titles, 'user_has_submitted_review': user_has_submitted_review, 'formatted_runtime': formatted_runtime})
