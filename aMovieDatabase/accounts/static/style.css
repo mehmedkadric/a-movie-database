@@ -315,7 +315,7 @@ form input[type="submit"]:hover {
   border-color: #0062cc;
 }
 
-#id_release_year_min, #id_release_year_max, #id_title, #id_genres {
+#id_release_year_min, #id_release_year_max, #id_title, #id_genres ,#id_vote_average_min , #id_vote_average_max{
   margin-left: -2em;
 	color: rgb(255, 255, 255);
   background-color: black;
