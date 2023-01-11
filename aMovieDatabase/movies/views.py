@@ -5,74 +5,37 @@ from reviews.forms import ReviewForm
 import json, time
 from django.core.paginator import Paginator, PageNotAnInteger,EmptyPage
 from django.contrib import messages
+from .filters import MovieFilter
 
 
 def movie(request):
-    # Get the genre from the request
-    genre = request.GET.get('genre')
     movie_image = MovieImage.objects.values('caption', 'image').distinct()
-    vote_average_min = request.GET.get('vote_average_min')
-    vote_average_max = request.GET.get('vote_average_max')
-    titleofRequest = request.GET.get('title')
-    # Get a queryset of all the movies
-    movies = Movie.objects.exclude(title__regex=r'^\d+').order_by('title')
-
-    
+    filter = MovieFilter(request.GET, queryset=Movie.objects.exclude(title__regex=r'^\d+').order_by('title'))
+    movies = filter.qs
     matching_movies = []
-
     for movie_image1 in movie_image:
         caption = movie_image1['caption']
         for movie in movies:
             if movie.title == caption:
                 matching_movies.append(movie)
-
-    # Flatten the list of genres for each movie, and get the unique values
-    available_genres = set()
-    for movie in movies:
-        x = json.loads(movie.genres)
-        movie.genres = [d['name'] for d in x]
-        available_genres.update(movie.genres)
-    available_genres = list(available_genres)
-
-
-    if vote_average_min and vote_average_max:
-        movies = movies.filter(vote_average__gte=vote_average_min, vote_average__lte=vote_average_max)
-
-    # Filter the movies queryset by the genre
-    if genre:
-        movies = movies.filter(genres__contains=genre)
-
-    if titleofRequest:
-        movies = movies.filter(title__icontains=titleofRequest)
-
-    years = Movie.objects.dates('release_date', 'year', order='ASC').distinct()
-    year = request.GET.get('year')
-    if year:
-        movies = movies.filter(release_date__year=year)
-    paginator = Paginator(movies, 12)
+    paginator = Paginator(movies, 6)
     page = request.GET.get('page')
+    query_params = request.GET.copy()
+    if 'page' in query_params:
+        del query_params['page']
     try:
         movies = paginator.page(page)
     except PageNotAnInteger:
         movies = paginator.page(1)
     except EmptyPage:
         movies = paginator.page(paginator.num_pages)
-
-    
-
-    # Sort the movies by vote_average in descending order
     sorted_movies = sorted(matching_movies, key=lambda x: x.vote_average, reverse=True)[:3]
     context = {
         'movies': movies,
         'movie_image': movie_image,
-        'years': years,
-        'selected_year': year,
-        'available_genres': available_genres,
-        'genre': genre,
         'sorted_movies': sorted_movies,
-        'vote_average_min': vote_average_min,
-        'vote_average_max': vote_average_max,
-        'titleofRequest': titleofRequest,
+        'filter': filter,
+        'query_params': query_params
     }
     return render(request, 'movies.html', context)
 

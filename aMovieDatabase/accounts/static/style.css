@@ -227,6 +227,7 @@ form input[type="submit"]:hover {
 
 .col-9 {
   box-shadow: 0 8px 10px -5px rgba(0, 0, 0, 0.4), 0 -8px 10px -5px rgba(0, 0, 0, 0.4), 8px 0 10px -5px rgba(0, 0, 0, 0.4), -8px 0 10px -5px rgba(0, 0, 0, 0.4);
+  background-color: white;
 }
 
 .pagination {
@@ -314,11 +315,12 @@ form input[type="submit"]:hover {
   border-color: #0062cc;
 }
 
-#vote-average-filter-min, #vote-average-filter-max, #genre-filter, #year-filter, #title-search {
+#id_release_year_min, #id_release_year_max, #id_title, #id_genres {
   margin-left: -2em;
 	color: rgb(255, 255, 255);
   background-color: black;
   width: 150px;
+  height: 35px;
 }
 .form-control:focus {
 	border-color: #5cb85c;
@@ -329,6 +331,12 @@ form input[type="submit"]:hover {
   background-color: black;
   width: 150px;
 }
+
+.btnSubmit{
+width: 100%;
+
+}
+
 
 /* movies */
 

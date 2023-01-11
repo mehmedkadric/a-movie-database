@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'movies.apps.MoviesConfig',
     'reviews.apps.ReviewsConfig',
     'accounts.apps.AccountsConfig',
+    'django_filters',
 ]
 
 MIDDLEWARE = [

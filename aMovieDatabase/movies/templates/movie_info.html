@@ -76,7 +76,7 @@
 
                 </div>
                 <div class="col-md-8">
-                    <h1 class="font-weight-bold mb-3">{{ movie.title }} ( {{movie.release_date|date:"Y" }} )</h1>
+                    <h1 class="font-weight-bold mb-3">{{ movie.title }} ({{movie.release_date|date:"Y" }})</h1>
                     <p class="lead mb-4">
                         {% for genre in movie.genres %}
                         <span style="background-color:rgb(112, 116, 116) ;" class="badge badge-primary p-2 mr-2">{{ genre }}</span>
@@ -89,40 +89,37 @@
 
                     <div class="mr-5">
                         <hr>
-                        {{ movie.overview }} 
+                        {{ movie.overview }}
                     </div>
                     <br>
-                    <div class="mr-5 font-weight-bold text-secondary">
-                        Rating:
-                    </div>
-                    <div class="mr-5">
+                    <div class="row">
+                      <div class="col">
+                        <div class="mr-5 font-weight-bold text-secondary">Rating:</div>
+                        <div class="mr-5">
+                          {{ movie.vote_average }} <i class="fas fa-star"></i>
+                         <hr>
+                        </div>
+                        <div class="mr-5 font-weight-bold text-secondary">Release date:</div>
+                        <div class="mr-5">
+                          {{ movie.release_date }}
                         <hr>
-                        {{ movie.vote_average }} <i class="fas fa-star"></i>
+                        </div>
+                      </div>
+                         <div class="col border-left" style="border-color: #ccc; border-width: 15px;">
+                      <div class="col">
+                        <div class="mr-5 font-weight-bold text-secondary">Runtime:</div>
+                        <div class="mr-5">
+                          {{ formatted_runtime }}
+                            <hr>
+                        </div>
+                        <div class="mr-5 font-weight-bold text-secondary">Status:</div>
+                        <div class="mr-5">
+                          {{ movie.status }}
+                            <hr>
+                        </div>
+                      </div>
                     </div>
-                    <br>
-                    <div class="mr-5 font-weight-bold text-secondary">
-                        Release date:
-                    </div>
-                    <div class="mr-5">
-                        <hr>
-                        {{ movie.release_date }}
-                    </div>
-                    <br>
-                    <div class="mr-5 font-weight-bold text-secondary">
-                        Runtime:
-                    </div>
-                    <div class="mr-5">
-                        <hr>
-                        {{ formatted_runtime  }}
-                    </div>
-                    <br>
-                    <div class="mr-5 font-weight-bold text-secondary">
-                        Status:
-                    </div>
-                    <div class="mr-5">
-                        <hr>
-                        {{ movie.status }}
-                    </div>
+                        </div>
                     <hr>
 
                 </div>
