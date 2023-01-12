@@ -2,6 +2,7 @@ import json
 from django import forms
 from django_filters import FilterSet, CharFilter, NumberFilter, ChoiceFilter
 from .models import Movie
+from django.forms.widgets import TextInput
 
 def get_genres():
     available_genres = set()
@@ -18,12 +19,12 @@ def get_genres():
 
 class MovieFilter(FilterSet):
     title = CharFilter(field_name='title', lookup_expr='icontains', label='Title')
-    release_year_min = NumberFilter(field_name='release_date__year', lookup_expr='gte',  label='Year (greater than or equal to):')
-    release_year_max = NumberFilter(field_name='release_date__year', lookup_expr='lte',   label='Year (less than or equal to):')
+    release_year_min = NumberFilter(field_name='release_date__year', lookup_expr='gte',  label='Year', widget=TextInput(attrs={'placeholder': '>='}))
+    release_year_max = NumberFilter(field_name='release_date__year', lookup_expr='lte', label='', widget=TextInput(attrs={'placeholder': '<='}))
     vote_average_min = NumberFilter(field_name='vote_average', lookup_expr='gte',
-                                    label='Vote average (greater than or equal to):')
+                                    label='Vote average',  widget=TextInput(attrs={'placeholder': '>='}))
     vote_average_max = NumberFilter(field_name='vote_average', lookup_expr='lte',
-                                    label='Vote average (less than or equal to):')
+                                    label='',  widget=TextInput(attrs={'placeholder': '<='}))
     genres = ChoiceFilter(field_name='genres', lookup_expr='contains', choices=get_genres, label='Genres', widget=forms.Select(attrs={'class': 'custom-select'}))
 
     class Meta:
