@@ -49,7 +49,11 @@
             {% if form.author.errors %}
             <div class="error">{{ form.author.errors }}</div>
             {% endif %}
+            {% if user_has_submitted_review %}
+            <div class="author-name">{{ form.author.initial }}</div>
+            {% else %}
             {{ form.author.label_tag }} {{ form.author }}
+            {% endif %}
           </div>
         </div>
         <div class="comment-body">
