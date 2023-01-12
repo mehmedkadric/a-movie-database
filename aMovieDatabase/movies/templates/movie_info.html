@@ -79,7 +79,9 @@
                     <h1 class="font-weight-bold mb-3">{{ movie.title }} ({{movie.release_date|date:"Y" }})</h1>
                     <p class="lead mb-4">
                         {% for genre in movie.genres %}
+                        <a href="{% url 'movie' %}?title={{ filter.data.title }}&genres={{ genre }}&release_year_min={{ filter.data.release_year_min }}&release_year_max={{ filter.data.release_year_max }}&vote_average_min={{ filter.data.vote_average_min }}&vote_average_max={{ filter.data.vote_average_max }}">
                         <span style="background-color:rgb(112, 116, 116) ;" class="badge badge-primary p-2 mr-2">{{ genre }}</span>
+                            </a>
                         {% endfor %}
                     </p>
                     <br>
