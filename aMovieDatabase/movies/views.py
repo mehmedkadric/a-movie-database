@@ -110,5 +110,14 @@ def movie_detail(request, title):
                    'formatted_runtime': formatted_runtime, 'user_rating': user_rating})
 
 
-
+def watchlist (request):
+    watchlist = Watchlist.objects.filter(user=request.user)
+    movie_image = MovieImage.objects.values('caption', 'image').distinct()
+    ratings = Rating.objects.filter(username=request.user)
+    context = {
+        'watchlist' : watchlist,
+        'movie_image': movie_image,
+        'ratings': ratings
+    }
+    return render(request, 'watchlist.html', context)
 

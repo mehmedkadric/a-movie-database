@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<head>
+  <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+</head>
+
+
+
+
+<body>
+
+<table class="table table-dark">
+  <thead>
+    <tr>
+      <th>Poster image</th>
+      <th>Title</th>
+      <th>Rating</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for watchlist_item in watchlist %}
+      <tr>
+        {% for review_image in movie_image %}
+          {% if review_image.caption == watchlist_item.movie %}
+            <td>
+              <a href="{% url 'movie_detail' title=watchlist_item.movie %}">
+                <img class="img-thumbnail" src="{{ review_image.image }}" style="margin-top: 10px;">
+              </a>
+            </td>
+            <td>{{ watchlist_item.movie }}</td>
+            <td class="{% if rating.rating <= 2 %}text-danger{% elif rating.rating >= 3 and rating.rating <= 4 %}text-warning{% else %}text-success{% endif %}">
+              {% for rating in ratings %}
+                {% if rating.title == watchlist_item.movie %}
+                  {{ rating.rating }}
+                {% endif %}
+              {% endfor %}
+            </td>
+          {% endif %}
+        {% endfor %}
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+
+
+
+
+
+</body>
+
+
+{% endblock %}
