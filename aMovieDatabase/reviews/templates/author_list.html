@@ -18,15 +18,21 @@
           <div class="comment-author-pic-container">
             <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" class="comment-author-pic">
           </div>
-          <div class="comment-header-text">
-            <h3>A review by {{review.author }}</h3>
-            <span>{{ review.author }}</span>
+        <div class="comment-header-text">
+              <h3>A review by {{review.author }}</h3>
+              <span>{{ review.author }}</span>
+          {% if review.author == request.user.username %}
+        <form method="post" class="delete-review-form">
+          {% csrf_token %}
+          <input type="submit" value="Delete" name="remove_review" onclick="return confirm('Are you sure you want to delete your review?')">
+        </form>
+        {% endif %}
+            </div>
           </div>
-        </div>
-        <div class="comment-body">
-          <p>{{ review.content|truncatechars:200|safe|linebreaks }} <a
-              href="{% url 'review_detail' review.title review.author %}">Read More</a></p>
-        </div>
+          <div class="comment-body">
+            <p>{{ review.content|truncatechars:200|safe|linebreaks }} <a
+                href="{% url 'review_detail' review.title review.author %}">Read More</a></p>
+          </div>
       </div>
       {% endfor %}
     </div>

@@ -172,6 +172,24 @@
 	color: #333;
   }
 
+.comment-container {
+  position: relative;
+}
+
+form input[type="submit"][name="remove_review"] {
+  width: 30%;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+   background-color:red;
+}
+
+form input[type="submit"][name="remove_review"]:hover {
+  background-color: black;
+}
+
+
+
 
 form input[type="text"],
 form textarea {

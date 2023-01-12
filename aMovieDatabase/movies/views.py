@@ -99,6 +99,11 @@ def movie_detail(request, title):
             except Rating.DoesNotExist:
                 Rating.objects.create(username=request.user.username, title=title, rating=request.POST['rating'])
                 return redirect('movie_detail', title=title)
+        elif 'remove_review' in request.POST:
+            # Remove the review from the database
+            Reviewinfo.objects.filter(title=title, author=request.user.username).delete()
+            # Redirect to the same page to show the updated list of reviews
+            return redirect('movie_detail', title=title)
     return render(request, 'movie_info.html',
                   {'movie': movie, 'reviews': reviews, 'movie_image': movie_image, 'form': form, 'title': title,
                    'watchlist_titles': watchlist_titles, 'user_has_submitted_review': user_has_submitted_review,
