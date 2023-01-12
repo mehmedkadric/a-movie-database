@@ -12,10 +12,11 @@ def movie(request):
     movie_image = MovieImage.objects.values('caption', 'image').distinct()
     filter = MovieFilter(request.GET, queryset=Movie.objects.exclude(title__regex=r'^\d+').order_by('title'))
     movies = filter.qs
+    topMovies = Movie.objects.exclude(title__regex=r'^\d+').order_by('title')
     matching_movies = []
     for movie_image1 in movie_image:
         caption = movie_image1['caption']
-        for movie in movies:
+        for movie in topMovies:
             if movie.title == caption:
                 matching_movies.append(movie)
     paginator = Paginator(movies, 6)
@@ -33,6 +34,7 @@ def movie(request):
     context = {
         'movies': movies,
         'movie_image': movie_image,
+        'topMovies' : topMovies,
         'sorted_movies': sorted_movies,
         'filter': filter,
         'query_params': query_params

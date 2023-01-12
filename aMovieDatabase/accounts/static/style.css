@@ -315,7 +315,7 @@ form input[type="submit"]:hover {
   border-radius: 0.25rem;
 }
 
-.filter button {
+.filter button, .reset {
   width: 100px;
   height: calc(1.5em + 0.75rem + 2px);
   padding: 0.375rem 0.75rem;
@@ -350,10 +350,23 @@ form input[type="submit"]:hover {
   width: 150px;
 }
 
+a#clear{
+width: 100px;
+}
+
 .btnSubmit{
 width: 100%;
 
 }
+
+.btn2 {
+dispaly:flex;
+	border-radius: 3px;
+  color: rgb(255, 255, 255);
+  background-color: black;
+  width: 150px;
+}
+
 
   .row a{
     text-decoration: none;
@@ -427,6 +440,10 @@ body{
       height: auto;
       padding: 20px;
     }
+  }
+.row a{
+    text-decoration: none;
+    color: aliceblue;
   }
 
   /* Mobile-specific styles */
