@@ -24,6 +24,7 @@ class Movie(models.Model):
     vote_average = models.FloatField()
     vote_count = models.PositiveIntegerField()
 
+
 class MovieImage(models.Model):
     movie = models.ForeignKey('Movie', on_delete=models.CASCADE)
     image = models.URLField()
@@ -33,5 +34,10 @@ class MovieImage(models.Model):
 class Watchlist(models.Model):
     movie = models.CharField(max_length=255)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+class Rating(models.Model):
+    title = models.CharField(max_length=255)
+    username = models.CharField(max_length=255)
+    rating = models.IntegerField()
 
 
