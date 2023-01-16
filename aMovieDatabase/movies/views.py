@@ -32,14 +32,17 @@ def movie(request):
         movies = paginator.page(paginator.num_pages)
     sorted_movies = sorted(matching_movies, key=lambda x: x.vote_average, reverse=True)[:3]
     context = {
-        'movies': movies,
-        'movie_image': movie_image,
-        'topMovies' : topMovies,
-        'sorted_movies': sorted_movies,
-        'filter': filter,
-        'query_params': query_params
-    }
+            'movies': movies,
+            'movie_image': movie_image,
+            'topMovies' : topMovies,
+            'sorted_movies': sorted_movies,
+            'filter': filter,
+            'query_params': query_params
+        }
     return render(request, 'movies.html', context)
+
+
+
 
 
 def movie_detail(request, title):
