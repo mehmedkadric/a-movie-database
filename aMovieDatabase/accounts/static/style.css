@@ -530,12 +530,17 @@ body{
   th {
     background-color: #f2f2f2;
     color: black;
-    text-align: left;
+    text-align: center;
     padding: 8px;
   }
 
+.table-dark td{
+    vertical-align: middle;
+}
   td {
     padding: 8px;
+     text-align: center;
+    vertical-align: middle;
   }
 
   img {
@@ -552,10 +557,10 @@ body{
   }
 
 .box{
-padding: 20px;
-background-color: black;
-width:40%;
-border-radius: 15px;
- margin: 0 auto;
+    padding: 20px;
+    background-color: black;
+    width:40%;
+    border-radius: 15px;
+     margin: 0 auto;
 }
 
