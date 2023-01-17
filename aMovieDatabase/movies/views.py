@@ -106,6 +106,13 @@ def movie_detail(request, title):
             Reviewinfo.objects.filter(title=title, author=request.user.username).delete()
             # Redirect to the same page to show the updated list of reviews
             return redirect('movie_detail', title=title)
+        elif 'edit_review' in request.POST:
+            content = request.POST.get('content')
+            author = request.POST.get('author')
+            review = Reviewinfo.objects.get(title=title, author=request.user.username)
+            review.content = content
+            review.save()
+            return redirect('movie_detail', title=title)
     return render(request, 'movie_info.html',
                   {'movie': movie, 'reviews': reviews, 'movie_image': movie_image, 'form': form, 'title': title,
                    'watchlist_titles': watchlist_titles, 'user_has_submitted_review': user_has_submitted_review,
