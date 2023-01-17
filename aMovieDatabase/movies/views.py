@@ -12,7 +12,7 @@ def movie(request):
     movie_image = MovieImage.objects.values('caption', 'image').distinct()
     filter = MovieFilter(request.GET, queryset=Movie.objects.exclude(title__regex=r'^\d+').order_by('title'))
     movies = filter.qs
-    topMovies = Movie.objects.exclude(title__regex=r'^\d+').order_by('title')
+    topMovies = filter.qs.order_by('-vote_average')[:3]
     matching_movies = []
     for movie_image1 in movie_image:
         caption = movie_image1['caption']
