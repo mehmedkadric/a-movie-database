@@ -52,7 +52,7 @@
             {% if user_has_submitted_review %}
             <div class="author-name">{{ form.author.initial }}</div>
             {% else %}
-            {{ form.author.label_tag }} {{ form.author }}
+            {{ form.author.initial }}
             {% endif %}
           </div>
         </div>
