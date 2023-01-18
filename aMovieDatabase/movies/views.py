@@ -115,13 +115,24 @@ def movie_detail(request, title):
                    'formatted_runtime': formatted_runtime, 'user_rating': user_rating})
 
 
-def watchlist (request):
+def watchlist(request):
     watchlist = Watchlist.objects.filter(user=request.user)
     movies = Movie.objects.all()
     movie_image = MovieImage.objects.values('caption', 'image').distinct()
+    movies = Movie.objects.all()
     ratings = Rating.objects.filter(username=request.user)
+    rated_movies = []
+    for watchlist_item in watchlist:
+        for rating in ratings:
+            if rating.title == watchlist_item.movie and watchlist_item.movie not in rated_movies:
+                rated_movies.append(watchlist_item.movie)
+                watchlist_item.movie_rating = rating.rating
+                break
+        if watchlist_item.movie not in rated_movies:
+            watchlist_item.movie_rating = "No rating"
+
     context = {
-        'watchlist' : watchlist,
+        'watchlist': watchlist,
         'movie_image': movie_image,
         'ratings': ratings,
         'movies': movies
