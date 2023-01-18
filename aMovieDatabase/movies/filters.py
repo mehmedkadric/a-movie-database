@@ -18,15 +18,15 @@ def get_genres():
 
 
 class MovieFilter(FilterSet):
-    title = CharFilter(field_name='title', lookup_expr='icontains', label='Title')
-    release_year_min = NumberFilter(field_name='release_date__year', lookup_expr='gte',  label='Year', widget=TextInput(attrs={'placeholder': '>='}))
-    release_year_max = NumberFilter(field_name='release_date__year', lookup_expr='lte', label='', widget=TextInput(attrs={'placeholder': '<='}))
+    title = CharFilter(field_name='title', lookup_expr='icontains', label='', widget=TextInput(attrs={'placeholder': 'Search by Title'}))
+    release_year_min = NumberFilter(field_name='release_date__year', lookup_expr='gte',  label='', widget=TextInput(attrs={'placeholder': 'Year >='}))
+    release_year_max = NumberFilter(field_name='release_date__year', lookup_expr='lte', label='', widget=TextInput(attrs={'placeholder': 'Year <='}))
     vote_average_min = NumberFilter(field_name='vote_average', lookup_expr='gte',
-                                    label='Vote average',  widget=TextInput(attrs={'placeholder': '>='}))
+                                    label='',  widget=TextInput(attrs={'placeholder': 'Vote average>='}))
     vote_average_max = NumberFilter(field_name='vote_average', lookup_expr='lte',
-                                    label='',  widget=TextInput(attrs={'placeholder': '<='}))
-    genres = ChoiceFilter(field_name='genres', lookup_expr='contains', choices=get_genres, label='Genres', widget=forms.Select(attrs={'class': 'custom-select'}))
-
+                                    label='',  widget=TextInput(attrs={'placeholder': 'Vote average<='}))
+    genres = ChoiceFilter(field_name='genres', lookup_expr='contains', choices=get_genres, label='',
+                          widget=forms.Select(attrs={'class': 'custom-select'})  , empty_label="Genres")
     class Meta:
         model = Movie
         fields = ['title', 'genres', 'release_year_min', 'release_year_max','vote_average_min','vote_average_max']
