@@ -1,18 +1,18 @@
 <nav class="navbar navbar-expand-lg navbar-dark navbar-transparent">
-    <a class="navbar-brand" href="/">A Movie Database</a>
+  <a class="navbar-brand" href="/">A Movie Database</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <div class="collapse navbar-collapse" id="navbarNav" >
+  <div class="collapse navbar-collapse" id="navbarNav">
     {% if user.is_authenticated %}
     <ul class="navbar-nav">
-      <li class="nav-item">
+      <li class="nav-item {% if request.path == '/movies/' %}active{% endif %}">
         <a class="nav-link" href="/movies">Movies</a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item {% if request.path == '/watchlist/' %}active{% endif %}">
         <a class="nav-link" href="/watchlist">Watchlist</a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item {% if request.path == '/contact/' %}active{% endif %}">
         <a class="nav-link" href="#">Contact</a>
       </li>
     </ul>
@@ -25,29 +25,3 @@
     </ul>
   </div>
 </nav>
-
-
-
-
-
-
-
-
-<style>
-
-.navbar a,
-.navbar button {
-color: white;
-}
-
-.navbar a:hover,
-.navbar button:hover {
-background-color: rgb(3, 3, 3);
-color: rgb(251, 249, 249);
-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-
-</style>
-
-

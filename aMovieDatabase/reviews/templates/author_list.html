@@ -26,13 +26,20 @@
           {% csrf_token %}
           <input type="submit" value="Delete" name="remove_review" onclick="return confirm('Are you sure you want to delete your review?')">
         </form>
+         <button class="edit-review-btn btn-warning btn-lg"  >Edit</button>
         {% endif %}
             </div>
           </div>
-          <div class="comment-body">
-            <p>{{ review.content|truncatechars:200|safe|linebreaks }} <a
-                href="{% url 'review_detail' review.title review.author %}">Read More</a></p>
+          <div class="comment-body comment-body-hide">
+            <p class="original-content">{{ review.content|truncatechars:200|safe|linebreaks }} <a
+                href="{% url 'review_detail' review.title review.author %}" style="color:blue;">Read More</a></p>
           </div>
+        <form method="post" class="edit-review-form" style="display:none;">
+        {% csrf_token %}
+        <textarea name="content">{{ review.content }}</textarea>
+        <input type="hidden" name="author" value="{{ review.author }}">
+        <input type="submit" value="Save Changes" name="edit_review">
+    </form>
       </div>
       {% endfor %}
     </div>
@@ -52,7 +59,7 @@
             {% if user_has_submitted_review %}
             <div class="author-name">{{ form.author.initial }}</div>
             {% else %}
-            {{ form.author.label_tag }} {{ form.author }}
+            {{ form.author.initial }}
             {% endif %}
           </div>
         </div>
@@ -75,6 +82,20 @@
 
   </div>
 
+<script>
 
+
+$(document).on('click', '.edit-review-btn', function(){
+    var closest = $(this).closest('.comment-header-text');
+    var next = closest.parent().siblings('.edit-review-form');
+    next.show();
+});
+$(document).on('click', '.edit-review-btn', function(){
+    $(this).closest('.comment-container').find('.comment-body-hide').toggle();
+});
+
+
+</script>
 </body>
+
 {% endblock %}

@@ -12,7 +12,7 @@ def movie(request):
     movie_image = MovieImage.objects.values('caption', 'image').distinct()
     filter = MovieFilter(request.GET, queryset=Movie.objects.exclude(title__regex=r'^\d+').order_by('title'))
     movies = filter.qs
-    topMovies = Movie.objects.exclude(title__regex=r'^\d+').order_by('title')
+    topMovies = filter.qs.order_by('-vote_average')[:3]
     matching_movies = []
     for movie_image1 in movie_image:
         caption = movie_image1['caption']
@@ -32,14 +32,17 @@ def movie(request):
         movies = paginator.page(paginator.num_pages)
     sorted_movies = sorted(matching_movies, key=lambda x: x.vote_average, reverse=True)[:3]
     context = {
-        'movies': movies,
-        'movie_image': movie_image,
-        'topMovies' : topMovies,
-        'sorted_movies': sorted_movies,
-        'filter': filter,
-        'query_params': query_params
-    }
+            'movies': movies,
+            'movie_image': movie_image,
+            'topMovies' : topMovies,
+            'sorted_movies': sorted_movies,
+            'filter': filter,
+            'query_params': query_params
+        }
     return render(request, 'movies.html', context)
+
+
+
 
 
 def movie_detail(request, title):
@@ -74,6 +77,7 @@ def movie_detail(request, title):
                 review.title = title
                 review.author = request.user.username
                 review.save()
+                messages.success(request, 'Your review has been saved!')
                 # Redirect to the same page to show the updated list of reviews
                 return redirect('movie_detail', title=title)
             else:
@@ -105,6 +109,14 @@ def movie_detail(request, title):
             # Remove the review from the database
             Reviewinfo.objects.filter(title=title, author=request.user.username).delete()
             # Redirect to the same page to show the updated list of reviews
+            messages.error(request, 'Your review has been deleted!')
+            return redirect('movie_detail', title=title)
+        elif 'edit_review' in request.POST:
+            content = request.POST.get('content')
+            author = request.POST.get('author')
+            review = Reviewinfo.objects.get(title=title, author=request.user.username)
+            review.content = content
+            review.save()
             return redirect('movie_detail', title=title)
     return render(request, 'movie_info.html',
                   {'movie': movie, 'reviews': reviews, 'movie_image': movie_image, 'form': form, 'title': title,
@@ -112,14 +124,27 @@ def movie_detail(request, title):
                    'formatted_runtime': formatted_runtime, 'user_rating': user_rating})
 
 
-def watchlist (request):
+def watchlist(request):
     watchlist = Watchlist.objects.filter(user=request.user)
+    movies = Movie.objects.all()
     movie_image = MovieImage.objects.values('caption', 'image').distinct()
+    movies = Movie.objects.all()
     ratings = Rating.objects.filter(username=request.user)
+    rated_movies = []
+    for watchlist_item in watchlist:
+        for rating in ratings:
+            if rating.title == watchlist_item.movie and watchlist_item.movie not in rated_movies:
+                rated_movies.append(watchlist_item.movie)
+                watchlist_item.movie_rating = rating.rating
+                break
+        if watchlist_item.movie not in rated_movies:
+            watchlist_item.movie_rating = "No rating"
+
     context = {
-        'watchlist' : watchlist,
+        'watchlist': watchlist,
         'movie_image': movie_image,
-        'ratings': ratings
+        'ratings': ratings,
+        'movies': movies
     }
     return render(request, 'watchlist.html', context)
 

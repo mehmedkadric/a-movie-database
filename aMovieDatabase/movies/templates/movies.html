@@ -24,7 +24,7 @@
             <div class="card-body">
               <form method="get">
                 <div class="form-group">
-                               {{ filter.form }}
+                  {{ filter.form }}
                 </div>
                 <br><br>
                  <button type="submit" class="btn btn-primary">Filter</button> <br><br>
@@ -34,8 +34,8 @@
             </div>
           </div>
       </div>
+    </section>
   </section>
-
 
 
 <section id="movie-card-container" style="align-content: center; border: solid rgb(255, 0, 0); border-radius: 20px; background-image: url('https://wallpaperaccess.com/full/1091558.jpg');">
@@ -45,9 +45,8 @@
         <h2 class="font-weight-bold mb-3" style="color: white;">
           All Movies
         </h2>
-
       </div>
-      <div class="row d-flex justify-content-center">
+      <div class="row d-flex justify-content-center" id="movie-cards">
         {% for movie in movies %}
         {% for review_image in movie_image %}
           {% if review_image.caption == movie.title %}
@@ -73,9 +72,52 @@
     <hr>
   </section>
 
+
       </div>
         {% include 'pagination.html' %}
 </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+document.addEventListener("click", function(event) {
+  if (event.target.classList.contains("page-link")) {
+    event.preventDefault();
+    console.log("Event listener added for page link", event.target);
+
+    const pageNumber = event.target.getAttribute("href").split("=")[1];
+
+    //Make the request to the server
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', `/movies/?page=${pageNumber}`);
+
+    xhr.onload = function() {
+      if (xhr.status === 200) {
+        console.log(pageNumber)
+        // Parse the response HTML
+        const parser = new DOMParser();
+        const responseHTML = parser.parseFromString(xhr.response, "text/html");
+
+        // Update the movie card container
+        const movieCardContainer = document.getElementById("movie-card-container");
+        movieCardContainer.innerHTML = responseHTML.querySelector("#movie-card-container").innerHTML;
+
+        // Update the pagination
+        const pagination = document.getElementById("pagination-container");
+        if(pagination){
+          pagination.innerHTML = responseHTML.querySelector("#pagination-container").innerHTML;
+        }
+      }
+    };
+
+    xhr.send();
+  }
+});
+
+</script>
+
+
+
+
 
 </body>
 

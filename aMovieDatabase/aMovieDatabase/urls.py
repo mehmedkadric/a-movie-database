@@ -24,3 +24,6 @@ urlpatterns = [
     path('', include('reviews.urls')),
     path('', include('movies.urls')),
 ]
+
+handler404 = 'core.views.handle_404'
+handler500 = 'core.views.handle_500'

@@ -9,12 +9,14 @@ class ReviewForm(forms.ModelForm):
         self.fields['title'].initial = self.title
         self.fields['title'].widget = forms.HiddenInput()
         self.fields['author'].initial = self.username
-        if self.username:  # Add this line
-            self.fields['author'].widget.attrs['readonly'] = True  # Add this line
+        self.fields['author'].widget.attrs['readonly'] = True
 
     class Meta:
         model = Reviewinfo
         fields = ['title', 'author', 'content']
         widgets = {
             'content': forms.Textarea(attrs={'rows': 4, 'cols': 50})
+        }
+        required = {
+            'author': False
         }
