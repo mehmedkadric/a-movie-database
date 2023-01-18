@@ -1,3 +1,58 @@
+/* navbar */
+.navbar-dark .navbar-nav .nav-link{
+    color:red;
+    display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 0;
+  white-space: nowrap;
+  transition: 0.3s;
+  letter-spacing: 0.4px;
+  position: relative;
+  text-transform: uppercase;
+  margin:10px;
+    }
+
+
+.navbar-dark .navbar-brand:hover{
+    color:red;
+}
+
+.navbar .navbar-nav .nav-link:hover {
+  color: red;
+}
+
+.navbar .navbar-nav .nav-item {
+  position: relative;
+}
+.navbar .navbar-nav .nav-item::after {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  background-color: red;
+  width: 0%;
+  content: "";
+  height: 4px;
+  transition: all 0.5s;
+}
+
+.navbar .navbar-nav .nav-item:hover::after {
+  width: 100%;
+}
+
+.navbar-dark .navbar-nav .active>.nav-link {
+    color: red;
+
+}
+
+
+
+
 /* LOGIN */
 .login-form {
     width: 340px;
