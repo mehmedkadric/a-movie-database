@@ -16,7 +16,7 @@
     <tr>
       <th>Poster image</th>
       <th>Title</th>
-      <th>Rating</th>
+      <th>Your Rating / Movie Rating</th>
     </tr>
   </thead>
   <tbody>
@@ -31,9 +31,20 @@
             </td>
             <td>{{ watchlist_item.movie }}</td>
             <td class="{% if rating.rating <= 2 %}text-danger{% elif rating.rating >= 3 and rating.rating <= 4 %}text-warning{% else %}text-success{% endif %}">
+
               {% for rating in ratings %}
-                {% if rating.title == watchlist_item.movie %}
-                  {{ rating.rating }}
+        {% if watchlist_item.user == rating.username %}
+            {{ rating.rating }} /
+        {% endif %}
+         {% else %}
+            No rating
+    {% endfor %}
+
+
+
+              {% for movie in movies %}
+           {% if movie.title == watchlist_item.movie  %}
+             {{ movie.vote_average }}
                 {% endif %}
               {% endfor %}
             </td>
