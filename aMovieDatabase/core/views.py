@@ -1,7 +1,3 @@
-from django.contrib import messages
-from django.shortcuts import render
-
-# Create your views here.
 from django.shortcuts import render
 from django.shortcuts import render, redirect
 
@@ -11,3 +7,9 @@ def home(request):
         'title': 'Home',
     }
     return render(request, 'home.html', context)
+
+def handle_404(request, exception):
+    return render(request, 'handle_error.html')
+
+def handle_500(request):
+    return render(request, 'handle_error.html')
