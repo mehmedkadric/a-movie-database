@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
-
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 class Movie(models.Model):
     budget = models.PositiveIntegerField()
@@ -40,4 +41,11 @@ class Rating(models.Model):
     username = models.CharField(max_length=255)
     rating = models.IntegerField()
 
+@receiver(post_save, sender=Rating)
+def update_vote_average(sender, instance, **kwargs):
+    movie = Movie.objects.get(title=instance.title)
+    ratings = Rating.objects.filter(title=instance.title)
+    vote_average = sum([r.rating for r in ratings]) / len(ratings)
+    movie.vote_average = vote_average
+    movie.save()
 
