@@ -77,6 +77,7 @@ def movie_detail(request, title):
                 review.title = title
                 review.author = request.user.username
                 review.save()
+                messages.success(request, 'Your review has been saved!')
                 # Redirect to the same page to show the updated list of reviews
                 return redirect('movie_detail', title=title)
             else:
@@ -108,6 +109,7 @@ def movie_detail(request, title):
             # Remove the review from the database
             Reviewinfo.objects.filter(title=title, author=request.user.username).delete()
             # Redirect to the same page to show the updated list of reviews
+            messages.error(request, 'Your review has been deleted!')
             return redirect('movie_detail', title=title)
     return render(request, 'movie_info.html',
                   {'movie': movie, 'reviews': reviews, 'movie_image': movie_image, 'form': form, 'title': title,
