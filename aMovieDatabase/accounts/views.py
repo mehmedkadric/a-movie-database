@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, get_user_model
 from django.contrib.auth.forms import UserCreationForm
 from .forms import NewUserForm,RegistrationForm
+from django.contrib.auth.models import User
 
 
 def home(request):
@@ -54,3 +55,6 @@ def login_view(request):
             return render(request, 'login.html')
     else:
         return render(request, 'login.html')
+
+def user_detail(request, username):
+    return render(request, 'user_info.html',{})
