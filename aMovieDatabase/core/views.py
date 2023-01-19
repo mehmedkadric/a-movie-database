@@ -13,3 +13,6 @@ def handle_404(request, exception):
 
 def handle_500(request):
     return render(request, 'handle_error.html')
+
+def about(request):
+    return render(request, 'about.html', {'title': 'About',})
