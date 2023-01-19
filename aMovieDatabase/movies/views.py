@@ -6,8 +6,10 @@ import json, time
 from django.core.paginator import Paginator, PageNotAnInteger,EmptyPage
 from django.contrib import messages
 from .filters import MovieFilter
+from django.contrib.auth.decorators import login_required
 
 
+@login_required
 def movie(request):
     movie_image = MovieImage.objects.values('caption', 'image').distinct()
     filter = MovieFilter(request.GET, queryset=Movie.objects.exclude(title__regex=r'^\d+').order_by('title'))
@@ -44,7 +46,7 @@ def movie(request):
 
 
 
-
+@login_required
 def movie_detail(request, title):
     # Get the reviews for the movie with the specified title
     movie = Movie.objects.filter(title=title).values()[0]
@@ -123,7 +125,7 @@ def movie_detail(request, title):
                    'watchlist_titles': watchlist_titles, 'user_has_submitted_review': user_has_submitted_review,
                    'formatted_runtime': formatted_runtime, 'user_rating': user_rating})
 
-
+@login_required
 def watchlist(request):
     watchlist = Watchlist.objects.filter(user=request.user)
     movies = Movie.objects.all()
