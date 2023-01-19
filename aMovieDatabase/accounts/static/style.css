@@ -181,51 +181,51 @@
 	margin-bottom: 20px;
   }
 
-  .comment-header {
+.comment-header {
 	display: flex;
 	align-items: center;
 	padding: 20px;
 	border-bottom: 1px solid #ddd;
-  }
+}
 
-  .comment-author-pic-container {
+.comment-author-pic-container {
 	margin-right: 20px;
-  }
+}
 
-  .comment-author-pic {
+.comment-author-pic {
 	border-radius: 50%;
 	width: 50px;
 	height: 50px;
-  }
+}
 
-  .comment-header-text {
+.comment-header-text {
 	flex: 1;
-  }
+}
 
-  .comment-header h3 {
+.comment-header h3 {
 	margin: 0;
 	font-size: 18px;
 	font-weight: bold;
 	color: #333;
-  }
+}
 
-  .comment-header span {
+.comment-header span {
 	display: block;
 	font-size: 14px;
 	color: #777;
 	margin-top: 5px;
-  }
+}
 
-  .comment-body {
+.comment-body {
 	padding: 20px;
-  }
+}
 
-  .comment-body p {
+ .comment-body p {
 	font-size: 14px;
 	line-height: 1.5;
 	margin: 0;
 	color: #333;
-  }
+ }
 
 .comment-container {
   position: relative;
@@ -349,92 +349,108 @@ form input[type="submit"]:hover {
   }
 
 
-.filter label {
-  font-size: 15px;
-  color: white;
-  text-align: left;
-}
+    .filter label {
+      font-size: 15px;
+      color: white;
+      text-align: left;
+    }
 
-.filter select {
-  margin-left: 1rem;
-  width: 150px;
-  height: calc(1.5em + 0.75rem + 2px);
-  padding: 0.375rem 0.75rem;
-  font-size: 1rem;
-  font-weight: 400;
-  line-height: 1.5;
-  color: #495057;
-  background-color: #fff;
-  background-clip: padding-box;
-  border: 1px solid #ced4da;
-  border-radius: 0.25rem;
-}
+    .filter select {
+      margin-left: 1rem;
+      width: 150px;
+      height: calc(1.5em + 0.75rem + 2px);
+      padding: 0.375rem 0.75rem;
+      font-size: 1rem;
+      font-weight: 400;
+      line-height: 1.5;
+      color: #495057;
+      background-color: #fff;
+      background-clip: padding-box;
+      border: 1px solid #ced4da;
+      border-radius: 0.25rem;
+    }
 
-.filter button, .reset {
-  width: 100px;
-  height: calc(1.5em + 0.75rem + 2px);
-  padding: 0.375rem 0.75rem;
-  font-size: 1rem;
-  font-weight: 400;
-  line-height: 1.5;
-  color: #fff;
-  background-color: #000000;
-  border-color: #007bff;
-  border-radius: 0.25rem;
-}
+    .filter button, .reset {
+      width: 100px;
+      height: calc(1.5em + 0.75rem + 2px);
+      padding: 0.375rem 0.75rem;
+      font-size: 1rem;
+      font-weight: 400;
+      line-height: 1.5;
+      color: #fff;
+      background-color: #000000;
+      border-color: #007bff;
+      border-radius: 0.25rem;
+    }
 
-.filter button:hover {
-  background-color: #0069d9;
-  border-color: #0062cc;
-}
+    .filter button:hover {
+      background-color: #0069d9;
+      border-color: #0062cc;
+    }
 
-#id_release_year_min, #id_release_year_max, #id_title, #id_genres ,#id_vote_average_min , #id_vote_average_max{
-  margin-left: -2em;
-	color: rgb(255, 255, 255);
-  background-color: black;
-  width: 150px;
-  height: 35px;
-}
-.form-control:focus {
-	border-color: #5cb85c;
-}
-.form-control input, .btn {
-	border-radius: 3px;
-  color: rgb(255, 255, 255);
-  background-color: black;
-  width: 150px;
-}
+    #id_release_year_min, #id_release_year_max, #id_title, #id_genres ,#id_vote_average_min , #id_vote_average_max{
+      margin-left: -2em;
+        color: rgb(255, 255, 255);
+      background-color: black;
+      width: 150px;
+      height: 35px;
+    }
+    .form-control:focus {
+        border-color: #5cb85c;
+    }
+    .form-control input, .btn {
+        border-radius: 3px;
+      color: rgb(255, 255, 255);
+      background-color: black;
+      width: 150px;
+    }
 
-a#clear{
-width: 100px;
-}
+    a#clear{
+    width: 100px;
+    }
 
-.btnSubmit{
-width: 100%;
+    .btnSubmit{
+    width: 100%;
 
-}
+    }
 
-.btn2 {
-dispaly:flex;
-	border-radius: 3px;
-  color: rgb(255, 255, 255);
-  background-color: black;
-  width: 150px;
-}
+    .btn2 {
+    dispaly:flex;
+        border-radius: 3px;
+      color: rgb(255, 255, 255);
+      background-color: black;
+      width: 150px;
+    }
 
 
-  .row a{
-    text-decoration: none;
-    color: aliceblue;
-  }
+      .row a{
+        text-decoration: none;
+        color: aliceblue;
+      }
+
+      .filter-bg{
+       border: solid rgb(11, 143, 245);
+       border-radius: 20px;
+       background-image: url("img/moviesimg.png");
+      }
 
 
 /* movies */
 
 body{
-	background-image: url('https://wallpaperaccess.com/full/1091558.jpg');
+	background-size:cover;
+	 background-attachment: fixed;
+	 background-image: url("img/appbg.jpg");
+	 margin: 0;
+     padding: 0;
+     border-left: 2px solid black;
   }
-
+    .section-featured-movies{
+    align-content: center;
+     border: solid rgb(255, 0, 0) ;
+     border-radius: 20px;
+     background-image: url("img/moviesimg.png");
+    }
   .row a{
 	text-decoration: none;
   }
@@ -455,6 +471,12 @@ body{
 	text-align: center;
   }
 
+   #movie-card-container{
+       align-content: center;
+       border: solid rgb(255, 0, 0);
+       border-radius: 20px;
+       background-image: url("img/moviesimg.png");
+    }
   .movie-card:hover {
 	box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
   }
