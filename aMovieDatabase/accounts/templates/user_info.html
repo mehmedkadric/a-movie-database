@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<head>
+    <link rel="stylesheet" type="text/css" href="{%static 'style.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body style="background-image: url('https://images.pexels.com/photos/281260/pexels-photo-281260.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'); background-size: cover;">
+    <div class="container">
+        <h1 class="text-center mb-5" style="color: rgb(255, 255, 255);">{{ user.username }}'s Profile</h1>
+        <div class="card">
+            <div class="card-body" style="background-image: url('https://cdn.wallpapersafari.com/64/36/cSfnXV.jpg');">
+                <p><strong>First Name:</strong> {{ user.first_name }}</p>
+                <p><strong>Last Name:</strong> {{ user.last_name }}</p>
+                <p><strong>Email:</strong> {{ user.email }}</p>
+                <p><strong>Date Joined: </strong>{{ user.date_joined|date:"d. M. Y" }}.</p>
+                <div class="text-center mt-5">
+                    <a href="/" class="btn btn-primary mr-3">Homepage</a>
+                    <a href="/movies" class="btn btn-secondary mr-3">See All Movies</a>
+                    <a href="/watchlist" class="btn btn-secondary mr-3">My Watchlist</a>
+                </div>
+            </div>
+        </div>
+    </div>    
+</body>
+
+{% endblock %}
