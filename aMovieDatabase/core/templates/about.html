@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<head>
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+</head>
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>About Us</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        padding: 20px;
+      }
+      h1 {
+        text-align: center;
+        margin-bottom: 30px;
+      }
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+      }
+      .card {
+        background-color: #f7f7f7;
+        padding: 20px;
+        margin-bottom: 30px;
+        border-radius: 5px;
+      }
+      .card h2 {
+        margin-bottom: 20px;
+      }
+      .card p {
+        margin-bottom: 10px;
+      }
+    </style>
+          <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <body>
+    <h1 style="color: white;">About Us</h1>
+    <div class="container">
+      <div class="card">
+        <h2>Our Web Application</h2>
+        <p>Welcome to our movie-lover's platform! Our web application offers a seamless browsing and searching experience for all the latest and greatest films. Discover movie details, ratings, and reviews with ease, and even filter results by your preferred genre, release year, or rating. Keep track of your must-watch list with our convenient watchlist feature.</p>
+      </div>
+      <div class="card">
+        <h2>Our Team</h2>
+        <p>The app was created by a team of talented young developers from Bosnia and Herzegovina, Ahmed, Mehmed and Harun. This project was not only a passion project but also an opportunity for them to gain deeper knowledge in Django framework and web development.</p>
+      </div>
+    <div class="text-center mt-5">
+        <a href="/" class="btn btn-primary mr-3">Homepage</a>
+        <a href="/movies" class="btn btn-secondary mr-3">See All Movies</a>
+        <a href="/watchlist" class="btn btn-secondary mr-3">My Watchlist</a>
+    </div>
+    </div>
+  </body>
+</html>
+
+
+{% endblock %}
