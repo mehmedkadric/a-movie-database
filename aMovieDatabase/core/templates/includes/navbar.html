@@ -12,15 +12,15 @@
       <li class="nav-item {% if request.path == '/watchlist/' %}active{% endif %}">
         <a class="nav-link" href="/watchlist">Watchlist</a>
       </li>
-      <li class="nav-item {% if request.path == '/contact/' %}active{% endif %}">
+      <li class="nav-item {% if request.path == '/about/' %}active{% endif %}">
         <a class="nav-link" href="/about">About</a>
       </li>
     </ul>
     {% endif %}
     <ul class="navbar-nav ml-auto">
       {% if user.is_authenticated %}
-      <li class="nav-item mx-2"><a href="/profile/{{ user.username }}">{{ user.username }}</a></li>
-      <li class="nav-item mx-2"><a href="{% url 'logout' %}">Logout</a></li>
+      <li class="nav-item mx-2 {% if request.path == '/profile/{{ user.username }}/' %}active{% endif %}"><a class = "nav-link" href="/profile/{{ user.username }}">{{ user.username }}</a></li>
+      <li class="nav-item mx-2"><a class = "nav-link"  href="{% url 'logout' %}">Logout</a></li>
       {% endif %}
     </ul>
   </div>

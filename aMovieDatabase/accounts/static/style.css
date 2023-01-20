@@ -476,7 +476,12 @@ a#clear {
 /* movies */
 
 body {
-  background-image: url('https://wallpaperaccess.com/full/1091558.jpg');
+	background-size:cover;
+	 background-attachment: fixed;
+	 background-image: url("https://raw.githubusercontent.com/mehmedkadric/a-movie-database/fdf869d1939820a984804e76fc2a0f75056174e2/aMovieDatabase/accounts/static/img/appbg.jpg");
+	 margin: 0;
+     padding: 0;
+     border-left: 2px solid black;
 }
 
 .row a {
@@ -656,4 +661,156 @@ img {
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
+}
+
+/* profile css */
+
+.header {
+    position: relative;
+    width: 100%;
+    height: 300px;
+    background-size: cover;
+    background-position: center;
+}
+
+.header-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 25px;
+}
+
+.header-content {
+    position: absolute;
+    top: 50px;
+    left: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.left-section {
+    width: 200px;
+}
+
+.profile-picture {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    margin-right: 20px;
+}
+
+.middle-section {
+    margin: 0 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.username {
+    font-size: 36px;
+    color: white;
+}
+
+.member-since {
+    color: gray;
+    margin-top: 10px;
+    font-size: 18px;
+}
+
+.reviews-section {
+    margin: 50px 0;
+    text-align: center;
+}
+
+.review-card {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+}
+
+.review-card img {
+    width: 100px;
+    height: 150px;
+    margin-right: 20px;
+}
+
+.review-text {
+    width: 80%;
+    text-align: left;
+}
+
+.review-text h3 {
+    margin-bottom: 10px;
+}
+
+.review-text p {
+    margin-bottom: 5px;
+}
+
+.nav-tabs {
+    border-bottom: 1px solid #ddd;
+}
+
+.nav-tabs .nav-link {
+    border: 1px solid #ddd;
+    border-top-left-radius: .25rem;
+    border-top-right-radius: .25rem;
+    padding: 1rem 2rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.nav-tabs .nav-link.active {
+    background-color: #fff;
+    border-color: #ddd;
+}
+.tab-content {
+    padding: 2rem;
+    background-color: #f5f5f5; /* add a background color to the tab content section */
+}
+
+.rating-card {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+}
+.rating-card img {
+    width: 100px;
+    height: 150px;
+    margin-right: 20px;
+}
+.rating-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100%;
+}
+.rating-text h3 {
+    margin: 0;
+}
+.rating-text .rating {
+    font-weight: bold;
+    align-self: flex-end;
+}
+
+
+
+.tab-nav-link:not(.active){
+    background-color: #f2f2f2;
+    color: #808080;
+    opacity: 0.5;
 }

@@ -6,24 +6,75 @@
     <link rel="stylesheet" type="text/css" href="{%static 'style.css' %}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
-
 <body>
-    <div class="container">
-        <h1 class="text-center mb-5" style="color: rgb(255, 255, 255);">{{ user.username }}'s Profile</h1>
-        <div class="card">
-            <div class="card-body" style="background-image: url('');">
-                <p><strong>First Name:</strong> {{ user.first_name }}</p>
-                <p><strong>Last Name:</strong> {{ user.last_name }}</p>
-                <p><strong>Email:</strong> {{ user.email }}</p>
-                <p><strong>Date Joined: </strong>{{ user.date_joined|date:"d. M. Y" }}.</p>
+
+
+
+    <div class="header" style="border-radius:25px; background-image: url('https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/2b463a35-6d9f-4d57-b1d5-d726eb611171/d4ttuvw-33d81d86-8cfd-42bf-81fa-3f8e694520eb.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzJiNDYzYTM1LTZkOWYtNGQ1Ny1iMWQ1LWQ3MjZlYjYxMTE3MVwvZDR0dHV2dy0zM2Q4MWQ4Ni04Y2ZkLTQyYmYtODFmYS0zZjhlNjk0NTIwZWIucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.MkcbSanb32gUj5XAI1q4DFi0PlRGGDYVE-ZZQd3XPAk');">
+    <div class="header-overlay"></div>
+    <div class="header-content">
+        <div class="left-section">
+                  <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="Profile Picture" class="profile-picture">
+        </div>
+        <div class="middle-section">
+                   <h1 class="username">{{user.username}}</h1>
+                    <p class="member-since">Member since {{ user.date_joined|date:"d. M. Y" }}</p>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link tab-nav-link active" id="reviews-tab" data-toggle="tab" href="#reviews-content" role="tab" aria-controls="reviews-content" aria-selected="true">Reviews</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link tab-nav-link" id="ratings-tab" data-toggle="tab" href="#ratings-content" role="tab" aria-controls="ratings-content" aria-selected="false">Ratings</a>
+        </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="reviews-content" role="tabpanel" aria-labelledby="reviews-tab">
+            <div class="reviews-section">
+    {% for review in reviews %}
+        <div class="review-card">
+             {% for image in movie_images %}
+                {% if image.caption == review.title %}
+                        <a href="{% url 'movie_detail' title=image.caption %}">
+                            <img src="{{ image.image }}" alt="{{ review.title }}">
+                        </a>
+            {% endif %}
+            {% endfor %}
+            <div class="review-text">
+                <h3>{{ review.title }}</h3>
+                <p class="original-content">{{ review.content|truncatechars:200|safe|linebreaks }} <a
+                href="{% url 'review_detail' review.title review.author %}" style="color:blue;">Read More</a></p>
+          </div>
+            </div>
+           {% endfor %}
+        </div>
+</div>
+<div class="tab-pane fade" id="ratings-content" role="tabpanel" aria-labelledby="ratings-tab">
+    <div class="ratings-section">
+        {% for rating in ratings %}
+        <div class="rating-card">
+            {% for image in movie_images %}
+            {% if image.caption == rating.title %}
+            <a href="{% url 'movie_detail' title=image.caption %}">
+                <img src="{{ image.image }}" alt="{{ review.title }}">
+            </a>
+            {% endif %}
+            {% endfor %}
+            <div class="rating-text">
+                <h3>{{ rating.title }}</h3>
+                <p class="rating">{{ rating.rating }}/10</p>
             </div>
         </div>
-        <div class="text-center mt-5">
-            <a href="/" class="btn btn-primary mr-3">Homepage</a>
-            <a href="/movies" class="btn btn-secondary mr-3">See All Movies</a>
-            <a href="/watchlist" class="btn btn-secondary mr-3">My Watchlist</a>
-        </div>
-    </div>    
+        {% endfor %}
+    </div>
+</div>
+
+
+
+
 </body>
 
 {% endblock %}
