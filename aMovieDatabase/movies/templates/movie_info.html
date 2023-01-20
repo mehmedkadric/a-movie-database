@@ -90,8 +90,8 @@
                     </div>
 
                     <div class="mr-5">
-                        <hr>
                         {{ movie.overview }}
+                        <hr>
                     </div>
                     <br>
                     <div class="row">
@@ -101,9 +101,9 @@
                           {{ movie.vote_average }} <i class="fas fa-star"></i>
                          <hr>
                         </div>
-                        <div class="mr-5 font-weight-bold text-secondary">Number of votes:</div>
+                        <div class="mr-5 font-weight-bold text-secondary">Production companies:</div>
                         <div class="mr-5">
-                          {{ movie.vote_count }}
+                          {{ movie.production_companies }}
                             <hr>
                         </div>
                         <div class="mr-5 font-weight-bold text-secondary">Release date:</div>
@@ -113,18 +113,19 @@
                         </div>
                       </div>
                          <div class="col border-left" style="border-color: #ccc; border-width: 15px;">
-                      <div class="col">
-                        <div class="mr-5 font-weight-bold text-secondary">Language:</div>
-                        <div class="mr-5">
-                          {{ movie.original_language }}
-                            <hr>
-                        </div>
-                                
+                      <div class="col">       
                         <div class="mr-5 font-weight-bold text-secondary">Runtime:</div>
                         <div class="mr-5">
                           {{ formatted_runtime }}
                             <hr>
                         </div>
+
+                        <div class="mr-5 font-weight-bold text-secondary">Production countries:</div>
+                        <div class="mr-5">
+                          {{ movie.production_countries }}
+                            <hr>
+                        </div>
+
                         <div class="mr-5 font-weight-bold text-secondary">Status:</div>
                         <div class="mr-5">
                           {{ movie.status }}
@@ -132,9 +133,7 @@
                         </div>
                       </div>
                       </div>
-                        </div>
-                    <hr>
-
+                    </div>
                 </div>
                 <h2 class="font-weight-bold mt-5 mb-3"><br>Author Reviews:</h2>
             </div>
