@@ -101,6 +101,11 @@
                           {{ movie.vote_average }} <i class="fas fa-star"></i>
                          <hr>
                         </div>
+                        <div class="mr-5 font-weight-bold text-secondary">Number of votes:</div>
+                        <div class="mr-5">
+                          {{ movie.vote_count }}
+                            <hr>
+                        </div>
                         <div class="mr-5 font-weight-bold text-secondary">Release date:</div>
                         <div class="mr-5">
                           {{ movie.release_date }}
@@ -109,6 +114,12 @@
                       </div>
                          <div class="col border-left" style="border-color: #ccc; border-width: 15px;">
                       <div class="col">
+                        <div class="mr-5 font-weight-bold text-secondary">Language:</div>
+                        <div class="mr-5">
+                          {{ movie.original_language }}
+                            <hr>
+                        </div>
+                                
                         <div class="mr-5 font-weight-bold text-secondary">Runtime:</div>
                         <div class="mr-5">
                           {{ formatted_runtime }}
@@ -120,7 +131,7 @@
                             <hr>
                         </div>
                       </div>
-                    </div>
+                      </div>
                         </div>
                     <hr>
 
