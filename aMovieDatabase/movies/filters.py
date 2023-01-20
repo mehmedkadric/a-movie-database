@@ -11,7 +11,7 @@ def get_genres():
         x = json.loads(movie.genres)
         movie.genres = [d['name'] for d in x]
         available_genres.update(movie.genres)
-    available_genres = list(available_genres)
+    available_genres = sorted(list(available_genres))
 
     return list(zip(available_genres, available_genres))
 

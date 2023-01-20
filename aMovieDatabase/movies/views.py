@@ -19,6 +19,8 @@ def movie(request):
         for movie in topMovies:
             if movie.title == caption:
                 matching_movies.append(movie)
+    if request.GET:  # check if any filters have been applied
+        movies = movies.order_by('-vote_average')
     paginator = Paginator(movies, 6)
     page = request.GET.get('page')
     query_params = request.GET.copy()
