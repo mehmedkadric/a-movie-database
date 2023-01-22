@@ -88,7 +88,7 @@ document.addEventListener("click", function(event) {
 
     //Make the request to the server
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', `/movies/?page=${pageNumber}`);
+    xhr.open('GET', `/movies/?page=${pageNumber}{% for key, value in query_params.items %}&{{ key }}={{ value }}{% endfor %}`);
 
     xhr.onload = function() {
       if (xhr.status === 200) {
