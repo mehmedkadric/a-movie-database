@@ -51,7 +51,7 @@
         {% for review_image in movie_image %}
           {% if review_image.caption == movie.title %}
             <div class="col-lg-4 col-md-6 mb-4">
-              <div class="movie-card">
+              <div class="movie-card movie-card-all">
                 <a href="details/{{ movie.title }}">
                   <img src="{{ review_image.image }}" class="card-img-top" style="margin-top: 10px;" alt="Movie Poster">
                   <div class="card-body">
@@ -62,6 +62,7 @@
                   </div>
                 </a>
               </div>
+              <br>
             </div>
           {% endif %}
         {% endfor %}
