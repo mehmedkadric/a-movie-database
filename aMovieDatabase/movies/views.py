@@ -56,6 +56,8 @@ def movie_detail(request, title):
     movie_image = MovieImage.objects.filter(caption=title).first()
     x = json.loads(movie['genres'])
     movie['genres'] = [d['name'] for d in x]
+    y = json.loads(movie['keywords'])
+    movie['keywords'] = [d['name'] for d in y]
     hours = movie['runtime'] // 60
     minutes = movie['runtime'] % 60
     formatted_runtime = f"{hours} hours {minutes} minutes"
