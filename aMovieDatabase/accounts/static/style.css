@@ -663,6 +663,7 @@ img {
   text-align: center;
 }
 
+
 /* profile css */
 
 .header {
@@ -813,4 +814,47 @@ img {
     background-color: #f2f2f2;
     color: #808080;
     opacity: 0.5;
+
+
+/* media queries */
+@media (max-width: 768px) {
+  .container {
+    width: 80%;
+    margin: 0 auto;
+  }
+  
+  .card {
+    width: 100%;
+  }
+
+  .movie-card-all{
+    margin: -1.2em;
+    width: fit-content;
+  }
+}
+
+@media (max-width: 992px) {
+  .container {
+    width: 80%;
+    margin: 0 auto;
+  }
+  
+  .card {
+    width: 100%;
+  }
+
+  .movie-card-all{
+    margin: -1.2em;
+    width: fit-content;
+  }
+}
+
+.my-form {
+  background-color: white;
+}
+
+.title2{
+  margin-left: 0em   !important;
+  color: black   !important;
+  background-color: white   !important;
 }

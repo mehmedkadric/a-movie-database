@@ -123,6 +123,13 @@
                     </div>
                         </div>
                     <hr>
+                    <p class="lead mb-4">
+                        {% for keyword in movie.keywords %}
+                        <a href="{% url 'movie' %}?title={{ filter.data.title }}&keywords={{keyword}}&genres={{ genre }}&release_year_min={{ filter.data.release_year_min }}&release_year_max={{ filter.data.release_year_max }}&vote_average_min={{ filter.data.vote_average_min }}&vote_average_max={{ filter.data.vote_average_max }}">
+                        <span style="background-color:rgb(112, 116, 116) ;" class="badge badge-primary p-2 mr-2">{{ keyword }}</span>
+                            </a>
+                        {% endfor %}
+                    </p>
 
                 </div>
                 <h2 class="font-weight-bold mt-5 mb-3"><br>Author Reviews:</h2>
