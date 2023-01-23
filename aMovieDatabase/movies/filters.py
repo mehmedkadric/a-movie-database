@@ -19,6 +19,8 @@ def get_genres():
 
 class MovieFilter(FilterSet):
     title = CharFilter(field_name='title', lookup_expr='icontains', label='', widget=TextInput(attrs={'placeholder': 'Search by Title'}))
+    keywords = CharFilter(field_name='keywords', lookup_expr='icontains', label='',
+                       widget=TextInput(attrs={'placeholder': 'Keyword'}))
     release_year_min = NumberFilter(field_name='release_date__year', lookup_expr='gte',  label='', widget=TextInput(attrs={'placeholder': 'Year >='}))
     release_year_max = NumberFilter(field_name='release_date__year', lookup_expr='lte', label='', widget=TextInput(attrs={'placeholder': 'Year <='}))
     vote_average_min = NumberFilter(field_name='vote_average', lookup_expr='gte',
@@ -29,6 +31,6 @@ class MovieFilter(FilterSet):
                           widget=forms.Select(attrs={'class': 'custom-select'})  , empty_label="Genres")
     class Meta:
         model = Movie
-        fields = ['title', 'genres', 'release_year_min', 'release_year_max','vote_average_min','vote_average_max']
+        fields = ['title','keywords' , 'genres', 'release_year_min', 'release_year_max','vote_average_min','vote_average_max']
 
 
