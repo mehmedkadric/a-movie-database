@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-
+from django.contrib.auth.decorators import login_required
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -27,3 +27,4 @@ urlpatterns = [
 
 handler404 = 'core.views.handle_404'
 handler500 = 'core.views.handle_500'
+
