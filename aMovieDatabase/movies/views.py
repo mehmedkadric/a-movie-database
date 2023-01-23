@@ -21,12 +21,15 @@ def movie(request):
     for movie in movies:
         scaled_popularity = movie.popularity / MAX_POPULARITY
         scaled_vote_average = movie.vote_average / MAX_VOTE_AVERAGE
-        movie.final_score = (0.5 *  scaled_vote_average + 0.5 * scaled_popularity)
+        movie.final_score = (0.2 *  scaled_vote_average + 0.8 * (scaled_popularity * 10))
         matching_movies.append(movie)
     topMovies = sorted(matching_movies, key=lambda x: x.final_score, reverse=True)
     scaled_topMovies = topMovies[:3]
     for movie in scaled_topMovies:
         movie.scaled_final_score = (movie.final_score*10) + 1
+        print(f"Movie: {movie.title} -  Vote: {scaled_vote_average}")
+        print(f"Movie: {movie.title} -  Popularity: {scaled_popularity * 10}")
+        print(f"Movie: {movie.title} -  Final score: {movie.scaled_final_score / 10}")
 
     if request.GET:  # check if any filters have been applied
         movies = movies.order_by('-vote_average')
