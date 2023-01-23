@@ -7,20 +7,27 @@ from django.core.paginator import Paginator, PageNotAnInteger,EmptyPage
 from django.contrib import messages
 from .filters import MovieFilter
 from django.contrib.auth.decorators import login_required
-
+from django.db.models import Max
 
 @login_required
 def movie(request):
     movie_image = MovieImage.objects.values('caption', 'image').distinct()
     filter = MovieFilter(request.GET, queryset=Movie.objects.exclude(title__regex=r'^\d+').order_by('title'))
     movies = filter.qs
-    topMovies = filter.qs.order_by('-vote_average')[:3]
+    topMovies = []
     matching_movies = []
-    for movie_image1 in movie_image:
-        caption = movie_image1['caption']
-        for movie in topMovies:
-            if movie.title == caption:
-                matching_movies.append(movie)
+    MAX_POPULARITY = Movie.objects.aggregate(max_popularity=Max('popularity'))['max_popularity']
+    MAX_VOTE_AVERAGE = Movie.objects.aggregate(max_vote_average=Max('vote_average'))['max_vote_average']
+    for movie in movies:
+        scaled_popularity = movie.popularity / MAX_POPULARITY
+        scaled_vote_average = movie.vote_average / MAX_VOTE_AVERAGE
+        movie.final_score = (0.5 *  scaled_vote_average + 0.5 * scaled_popularity)
+        matching_movies.append(movie)
+    topMovies = sorted(matching_movies, key=lambda x: x.final_score, reverse=True)
+    scaled_topMovies = topMovies[:3]
+    for movie in scaled_topMovies:
+        movie.scaled_final_score = (movie.final_score*10) + 1
+
     if request.GET:  # check if any filters have been applied
         movies = movies.order_by('-vote_average')
     paginator = Paginator(movies, 6)
@@ -34,18 +41,15 @@ def movie(request):
         movies = paginator.page(1)
     except EmptyPage:
         movies = paginator.page(paginator.num_pages)
-    sorted_movies = sorted(matching_movies, key=lambda x: x.vote_average, reverse=True)[:3]
+
     context = {
             'movies': movies,
             'movie_image': movie_image,
-            'topMovies' : topMovies,
-            'sorted_movies': sorted_movies,
+            'topMovies' : scaled_topMovies,
             'filter': filter,
             'query_params': query_params
         }
     return render(request, 'movies.html', context)
-
-
 
 
 @login_required
