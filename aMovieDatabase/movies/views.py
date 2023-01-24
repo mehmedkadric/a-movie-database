@@ -8,29 +8,16 @@ from django.contrib import messages
 from .filters import MovieFilter
 from django.contrib.auth.decorators import login_required
 from django.db.models import Max
+from .scoring_algorithm import score_movies
+
+
 
 @login_required
 def movie(request):
     movie_image = MovieImage.objects.values('caption', 'image').distinct()
     filter = MovieFilter(request.GET, queryset=Movie.objects.exclude(title__regex=r'^\d+').order_by('title'))
     movies = filter.qs
-    topMovies = []
-    matching_movies = []
-    MAX_POPULARITY = Movie.objects.aggregate(max_popularity=Max('popularity'))['max_popularity']
-    MAX_VOTE_AVERAGE = Movie.objects.aggregate(max_vote_average=Max('vote_average'))['max_vote_average']
-    for movie in movies:
-        scaled_popularity = movie.popularity / MAX_POPULARITY
-        scaled_vote_average = movie.vote_average / MAX_VOTE_AVERAGE
-        movie.final_score = (0.2 *  scaled_vote_average + 0.8 * (scaled_popularity * 10))
-        matching_movies.append(movie)
-    topMovies = sorted(matching_movies, key=lambda x: x.final_score, reverse=True)
-    scaled_topMovies = topMovies[:3]
-    for movie in scaled_topMovies:
-        movie.scaled_final_score = (movie.final_score*10) + 1
-        print(f"Movie: {movie.title} -  Vote: {scaled_vote_average}")
-        print(f"Movie: {movie.title} -  Popularity: {scaled_popularity * 10}")
-        print(f"Movie: {movie.title} -  Final score: {movie.scaled_final_score / 10}")
-
+    top_movies = score_movies(movies)
     if request.GET:  # check if any filters have been applied
         movies = movies.order_by('-vote_average')
     paginator = Paginator(movies, 6)
@@ -48,7 +35,7 @@ def movie(request):
     context = {
             'movies': movies,
             'movie_image': movie_image,
-            'topMovies' : scaled_topMovies,
+            'topMovies' : top_movies,
             'filter': filter,
             'query_params': query_params
         }
