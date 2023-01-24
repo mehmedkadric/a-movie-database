@@ -35,6 +35,9 @@ EMAIL_HOST = 'localhost'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
+LOGIN_URL = '/login/'
+
+
 # Application definition
 
 INSTALLED_APPS = [
