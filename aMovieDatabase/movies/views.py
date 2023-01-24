@@ -2,14 +2,14 @@ from django.shortcuts import render, redirect
 from .models import Movie, MovieImage,Watchlist, Rating
 from reviews.models import Reviewinfo
 from reviews.forms import ReviewForm
-import json, time
+import json, time, datetime
 from django.core.paginator import Paginator, PageNotAnInteger,EmptyPage
 from django.contrib import messages
 from .filters import MovieFilter
 from django.contrib.auth.decorators import login_required
 from django.db.models import Max
 from .scoring_algorithm import score_movies
-
+from .forms import MovieForm
 
 
 @login_required
@@ -50,6 +50,8 @@ def movie_detail(request, title):
     movie_image = MovieImage.objects.filter(caption=title).first()
     x = json.loads(movie['genres'])
     movie['genres'] = [d['name'] for d in x]
+    y = json.loads(movie['keywords'])
+    movie['keywords'] = [d['name'] for d in y]
     hours = movie['runtime'] // 60
     minutes = movie['runtime'] % 60
     formatted_runtime = f"{hours} hours {minutes} minutes"
@@ -145,4 +147,51 @@ def watchlist(request):
         'movies': movies
     }
     return render(request, 'watchlist.html', context)
+
+def add_movie(request):
+    if request.method == 'POST':
+        form = MovieForm(request.POST)
+        if form.is_valid():
+            try:
+                genres = json.dumps([{"id": 0, "name": g} for g in form.cleaned_data["genres"]])
+            except json.decoder.JSONDecodeError:
+                genres = form.cleaned_data['genres']
+                # here you can format the genres field as per your needs.
+                genres = [{"id": 0, "name": genres}]
+                genres = json.dumps(genres)
+
+            movie = Movie.objects.create(
+                movie_id = Movie.objects.count() + 1,
+                budget = 0,
+                homepage = '',
+                genres = genres,
+                keywords = '[{"id": 0, "name": ""}]',
+                original_language = '',
+                original_title = '',
+                overview = form.cleaned_data['overview'],
+                popularity = 0,
+                production_companies = '[{"id": 0, "name": ""}]',
+                production_countries = '[{"id": 0, "name": ""}]',
+                release_date = form.cleaned_data['release_date'],
+                revenue = 0,
+                runtime = form.cleaned_data['runtime'],
+                spoken_languages  = '[{"id": 0, "name": ""}]',
+                status = form.cleaned_data['status'],
+                tagline = '',
+                title = form.cleaned_data['title'],
+                vote_average = 0,
+                vote_count = 0
+            )
+            movie_image = MovieImage.objects.create(
+                movie=movie,
+                image=form.cleaned_data['image'],
+                caption=form.cleaned_data['title'],
+            )
+            messages.success(request, 'Movie has been added to DB.')
+            return redirect('home')
+    else:
+        messages.error(request, 'There was error adding your movie.')
+        form = MovieForm()
+
+    return render(request, 'add_movie.html', {'form': form})
 
