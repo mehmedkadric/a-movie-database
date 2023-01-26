@@ -29,7 +29,11 @@
                 <img class="img-thumbnail" src="{{ review_image.image }}" style="margin-top: 10px;">
               </a>
             </td>
-            <td class="movie-title">{{ watchlist_item.movie }}</td>
+            <td class="movie-title">
+              <a href="{% url 'movie_detail' title=watchlist_item.movie %}">
+                <p>{{ watchlist_item.movie }}</p>
+              </a>
+            </td>
             <td class="{% if rating.rating <= 2 %}text-danger{% elif rating.rating >= 3 and rating.rating <= 4 %}text-warning{% else %}text-success{% endif %}">
                 {{ watchlist_item.movie_rating }} /
               {% for movie in movies %}
