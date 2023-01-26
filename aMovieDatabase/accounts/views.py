@@ -4,7 +4,8 @@ from django.contrib.auth import authenticate, login, get_user_model, logout
 from django.contrib.auth.forms import UserCreationForm
 from .forms import NewUserForm,RegistrationForm
 from django.contrib.auth.models import User
-
+from reviews.models import Reviewinfo
+from movies.models import MovieImage, Rating
 
 def home(request):
     context = {
@@ -57,8 +58,13 @@ def login_view(request):
         return render(request, 'login.html')
 
 def user_detail(request, username):
-    return render(request, 'user_info.html',{})
+    reviews = Reviewinfo.objects.filter(author=request.user)
+    ratings = Rating.objects.filter(username=request.user)
+    movie_images = MovieImage.objects.all()
+    return render(request, 'user_info.html', {'reviews': reviews, 'movie_images' : movie_images, 'ratings' : ratings})
+
 
 def logout_view(request):
     logout(request)
     return redirect("home")
+

@@ -25,8 +25,8 @@
       <li class="nav-item mx-2"><a class="nav-link" href="/add_movie/">ADD A MOVIE</a></li>
       {% endif %}
       {% if user.is_authenticated %}
-      <li class="nav-item mx-2"><a class="nav-link" href="/profile/{{ user.username }}">{{ user.username }}</a></li>
-      <li class="nav-item mx-2"><a class="nav-link" href="{% url 'logout' %}">Logout</a></li>
+      <li class="nav-item mx-2 {% if request.path == '/profile/{{ user.username }}/' %}active{% endif %}"><a class = "nav-link" href="/profile/{{ user.username }}">{{ user.username }}</a></li>
+      <li class="nav-item mx-2"><a class = "nav-link"  href="{% url 'logout' %}">Logout</a></li>
       {% endif %}
     </ul>
   </div>
