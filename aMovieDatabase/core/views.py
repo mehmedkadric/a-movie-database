@@ -1,5 +1,6 @@
-from django.shortcuts import render
 from django.shortcuts import render, redirect
+from django.core.mail import send_mail
+from django.conf import settings
 
 
 def home(request):
@@ -16,3 +17,19 @@ def handle_500(request):
 
 def about(request):
     return render(request, 'about.html', {'title': 'About',})
+
+def contact_view(request):
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        message = request.POST.get('message')
+
+        send_mail(
+            f'New message from {name}',
+            message,
+            email,
+            ['kosharun04@gmail.com'],
+            fail_silently=False,
+        )
+        return redirect('contact')
+    return render(request, 'contact.html')
