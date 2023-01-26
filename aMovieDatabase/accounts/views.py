@@ -1,6 +1,6 @@
 from django.contrib import messages
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login, get_user_model
+from django.contrib.auth import authenticate, login, get_user_model, logout
 from django.contrib.auth.forms import UserCreationForm
 from .forms import NewUserForm,RegistrationForm
 from django.contrib.auth.models import User
@@ -58,3 +58,7 @@ def login_view(request):
 
 def user_detail(request, username):
     return render(request, 'user_info.html',{})
+
+def logout_view(request):
+    logout(request)
+    return redirect("home")

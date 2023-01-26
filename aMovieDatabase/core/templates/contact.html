@@ -1,0 +1,172 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Contact Us</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+    integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog=="
+    crossorigin="anonymous" />
+  <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+</head>
+
+<body>
+  <h1 style="color: white;">Contact Us</h1>
+  <div class="container">
+    <div class="card">
+      <h2>Get in Touch</h2>
+      <p>Do you have any questions or feedback for us? Please don't hesitate to reach out!</p>
+      <form action="{% url 'contact_view' %}" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" class="form-control" id="name" placeholder="Enter your name">
+        </div>
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea class="form-control" id="message" rows="3"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </div>
+    <div class="card">
+      <h2>Our Team</h2>
+      <div class="team-member">
+        <img src="https://media.licdn.com/dms/image/C4E03AQGF5rdhqnfoaA/profile-displayphoto-shrink_400_400/0/1626385859329?e=1679529600&v=beta&t=pIXOUesAs3B754DQWZk1iEfPxt_pN0CAlAYP3EX1Dp0" alt="Mehmed's profile picture">
+        <div>
+          <h3>Mehmed</h3>
+          <a href="https://www.linkedin.com/in/mehmed-kadric-b31b1386/" target="_blank"><i class="fab fa-linkedin"></i></a>
+          <a href="mailto:kadricze@gmail.com">kadricze@gmail.com</a>
+        </div>
+      </div>
+      <div class="team-member">
+        <img src="https://media.licdn.com/dms/image/C4E03AQGgvmYtCeiYGQ/profile-displayphoto-shrink_400_400/0/1658941282731?e=1679529600&v=beta&t=-w_hxB9LCz5Fpa3-XJ5PRDUvIut2EAMsfQbtWx04r1E" alt="Ahmed's profile picture">
+        <div>
+          <h3>Ahmed</h3>
+          <a href="https://www.linkedin.com/in/jasarevicahmed/" target="_blank"><i class="fab fa-linkedin"></i></a>
+          <a href="mailto:jasarevicahmed999@gmail.com">jasarevicahmed999@gmail.com</a>
+        </div>
+      </div>
+      <div class="team-member">
+        <img src="https://media.licdn.com/dms/image/C4D03AQGULK7iq8H86w/profile-displayphoto-shrink_400_400/0/1661713711173?e=1679529600&v=beta&t=aqqkN4ukezdGovSslSQHvFg-oyj0MSRBG2g2DJr8xcY" alt="Harun's profile picture">
+        <div>
+          <h3>Harun</h3>
+          <a href="https://www.linkedin.com/in/harun-kos-9621b5245/" target="_blank"><i class="fab fa-linkedin"></i></a>
+          <a href="mailto:kosharun04@gmail.com">kosharun04@gmail.com</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="text-center mt-5">
+    <a href="/" class="btn btn-primary mr-3">Homepage</a>
+    <a href="/movies" class="btn btn-secondary mr-3">See All Movies</a>
+    <a href="/watchlist" class="btn btn-secondary mr-3">My Watchlist</a>
+</div>
+ <br>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+  }
+
+  h1 {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .card {
+    background-color: #f7f7f7;
+    padding: 20px;
+    margin-bottom: 30px;
+    border-radius: 5px;
+  }
+
+  .card h2 {
+    margin-bottom: 20px;
+  }
+
+  .card p {
+    margin-bottom: 10px;
+  }
+
+  .team-member {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  .team-member img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 20px;
+  }
+</style>
+{% endblock %}

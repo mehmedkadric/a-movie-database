@@ -3,27 +3,35 @@
 {% block content %}
 
 <head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="{%static 'style.css' %}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
 <body>
     <div class="container">
-        <h1 class="text-center mb-5" style="color: rgb(255, 255, 255);">{{ user.username }}'s Profile</h1>
-        <div class="card">
-            <div class="card-body" style="background-image: url('');">
-                <p><strong>First Name:</strong> {{ user.first_name }}</p>
-                <p><strong>Last Name:</strong> {{ user.last_name }}</p>
-                <p><strong>Email:</strong> {{ user.email }}</p>
-                <p><strong>Date Joined: </strong>{{ user.date_joined|date:"d. M. Y" }}.</p>
+        <div class="row">
+            <div class="col-md-4">
+                <img src="{% static 'img/default_profile.png' %}" class="rounded-circle mx-auto d-block profile-pic" alt="profile picture">
+            </div>
+            <div class="col-md-8">
+                <h1 class="text-center mb-5" style="color: rgb(255, 255, 255);">{{ user.username }}'s Profile</h1>
+                <div class="card">
+                    <div class="card-body" style="background-color: #f5f5f5;">
+                        <p><strong>First Name:</strong> {{ user.first_name }}</p>
+                        <p><strong>Last Name:</strong> {{ user.last_name }}</p>
+                        <p><strong>Email:</strong> {{ user.email }}</p>
+                        <p><strong>Date Joined: </strong>{{ user.date_joined|date:"d. M. Y" }}.</p>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="text-center mt-5">
             <a href="/" class="btn btn-primary mr-3">Homepage</a>
             <a href="/movies" class="btn btn-secondary mr-3">See All Movies</a>
             <a href="/watchlist" class="btn btn-secondary mr-3">My Watchlist</a>
-        </div>
-    </div>    
-</body>
-
-{% endblock %}
+            </div>
+            </div>
+            
+            </body>
+            {% endblock %}
