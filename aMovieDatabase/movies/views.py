@@ -35,7 +35,7 @@ def movie(request):
     context = {
             'movies': movies,
             'movie_image': movie_image,
-            'topMovies' : top_movies,
+            'top_movies' : top_movies,
             'filter': filter,
             'query_params': query_params
         }
