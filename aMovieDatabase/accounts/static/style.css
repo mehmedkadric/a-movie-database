@@ -655,6 +655,18 @@ body{
         background: rgba(0, 0, 0, 0.6);
 }
 
+.rating label {
+  width: 40px;
+  height: 40px;
+  background: url('https://cdn-icons-png.flaticon.com/512/13/13595.png') no-repeat;
+  background-size: contain;
+  cursor: pointer
+}
+
+.rating input:checked~label {
+  background: url('/static/img/starimg.png') no-repeat;
+  background-size: contain;
+
 .bg-overlay{
     position: absolute; /* positions the overlay */
     top: 0;
@@ -671,6 +683,7 @@ body{
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
+
 }
 
 
