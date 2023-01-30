@@ -7,20 +7,17 @@ from django.core.paginator import Paginator, PageNotAnInteger,EmptyPage
 from django.contrib import messages
 from .filters import MovieFilter
 from django.contrib.auth.decorators import login_required
+from django.db.models import Max
+from .scoring_algorithm import score_movies
 from .forms import MovieForm
+
 
 @login_required
 def movie(request):
     movie_image = MovieImage.objects.values('caption', 'image').distinct()
     filter = MovieFilter(request.GET, queryset=Movie.objects.exclude(title__regex=r'^\d+').order_by('title'))
     movies = filter.qs
-    topMovies = filter.qs.order_by('-vote_average')[:3]
-    matching_movies = []
-    for movie_image1 in movie_image:
-        caption = movie_image1['caption']
-        for movie in topMovies:
-            if movie.title == caption:
-                matching_movies.append(movie)
+    top_movies = score_movies(movies)
     if request.GET:  # check if any filters have been applied
         movies = movies.order_by('-vote_average')
     paginator = Paginator(movies, 6)
@@ -34,18 +31,15 @@ def movie(request):
         movies = paginator.page(1)
     except EmptyPage:
         movies = paginator.page(paginator.num_pages)
-    sorted_movies = sorted(matching_movies, key=lambda x: x.vote_average, reverse=True)[:3]
+
     context = {
             'movies': movies,
             'movie_image': movie_image,
-            'topMovies' : topMovies,
-            'sorted_movies': sorted_movies,
+            'top_movies' : top_movies,
             'filter': filter,
             'query_params': query_params
         }
     return render(request, 'movies.html', context)
-
-
 
 
 @login_required
