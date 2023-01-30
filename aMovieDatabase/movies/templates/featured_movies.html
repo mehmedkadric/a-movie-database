@@ -15,7 +15,9 @@
 </div>
 
 <div class="row">
+
     {% for movie in topMovies %}
+
     {% for review_image in movie_image %}
     {% if review_image.caption == movie.title %}
     <div class="col-lg-4 col-md-6 mb-4">

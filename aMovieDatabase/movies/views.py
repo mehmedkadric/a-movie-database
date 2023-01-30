@@ -9,7 +9,6 @@ from .filters import MovieFilter
 from django.contrib.auth.decorators import login_required
 from django.db.models import Max
 from .scoring_algorithm import score_movies
-
 from .forms import MovieForm
 
 
