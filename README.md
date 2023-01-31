@@ -1,4 +1,3 @@
 # A movie database
 ## Overview
-A web application that allows users to browse and search for movies, view movie details and ratings, and leave reviews. It could include features like the ability to filter results by genre, release year, or rating, as well as the ability to save movies to a watchlist.
-## Features (TBA)
+AMovieDatabase is the perfect choice for movie enthusiasts looking for an easy way to search for and discover movie titles. With our web application, users can browse through an extensive library of movies, view detailed information about each title, rate them and even leave reviews. Additionally, our app's powerful filtering and sorting options allow users to find movies based on criteria such as genre, release year or rating. And with the ability to save movies to a watchlist, users can keep up to date with the latest movie releases and new additions to the database. So what are you waiting for? Try the "AMovieDatabase" today and start exploring the world of movies!
